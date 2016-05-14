@@ -9,14 +9,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSS">
    <children>
       <Label alignment="CENTER" layoutX="207.0" layoutY="41.0" prefHeight="62.0" prefWidth="167.0" text="ProceSS" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="skip" layoutX="188.0" layoutY="259.0" mnemonicParsing="false" onAction="#printHello" prefHeight="83.0" prefWidth="226.0" text="Enter">
+      <Button fx:id="sss" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="SSS">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button layoutX="310.0" layoutY="260.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="XOR" fx:id="xor">
          <font>
             <Font size="23.0" />
          </font>

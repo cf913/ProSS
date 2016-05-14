@@ -11,14 +11,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="1097.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="1097.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSS">
     <children>
         <Label alignment="CENTER" layoutX="411.0" prefHeight="62.0" prefWidth="246.0" text="Shamir's Secret Sharing" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="skip2" layoutX="19.0" layoutY="492.0" mnemonicParsing="false" onAction="#printHello" prefHeight="31.0" prefWidth="93.0" text="return">
+        <Button fx:id="skip2" layoutX="19.0" layoutY="492.0" mnemonicParsing="false" onAction="#goTo" prefHeight="31.0" prefWidth="124.0" text="Main menu">
             <font>
                 <Font size="15.0" />
             </font>
@@ -52,7 +52,12 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <CheckBox fx:id="tik1" layoutX="505.0" layoutY="263.0" mnemonicParsing="false" text="One share per file" />
+                        <CheckBox fx:id="tik1" layoutX="505.0" layoutY="263.0" mnemonicParsing="false" text="One share per file (not implemented yet)" />
+                        <Button fx:id="copybutton" layoutX="870.0" layoutY="297.0" mnemonicParsing="false" onAction="#copyIt" prefHeight="31.0" prefWidth="93.0" text="Copy">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
             </content>

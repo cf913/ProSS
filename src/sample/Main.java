@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
         primaryStage.setTitle("ProceSS");
         primaryStage.setScene(new Scene(root, 610, 360));
         primaryStage.show();

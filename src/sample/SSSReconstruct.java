@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainReconstruct {
+public class SSSReconstruct {
 
     public static String reconstruct(int numshares, String shares, BigInteger prime) {
 
@@ -44,26 +44,6 @@ public class MainReconstruct {
     }
 
 
-    public static void reconstruct2(String[] shares, BigInteger prime) {
-
-        ArrayList<Pair<Integer, BigInteger>> newShares = new ArrayList<>();
-
-        for (int i = 0; i < shares.length; i++) {
-
-            //clean share format
-            String nobracket = shares[i].replaceAll("[\\[\\](){}]","");
-            String[] s = nobracket.split(",");
-
-            int k = Integer.parseInt(s[0]);
-            BigInteger v = new BigInteger(String.valueOf(s[1]));
-            newShares.add(new Pair<>(k,v));
-        }
-
-        //TODO: implement output shares to file
-        BigInteger lesecret = reconstruct_shares(newShares,prime);
-        System.out.println("The secret is: " + lesecret);
-        System.out.println("The secret is: " + new String(lesecret.toByteArray()));
-    }
 
     private static BigInteger reconstruct_shares(List<Pair<Integer, BigInteger>> newShares, BigInteger prime) {
 

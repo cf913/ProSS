@@ -18,14 +18,16 @@ import java.util.logging.Logger;
 
 import static javafx.application.Platform.exit;
 
-public class Controller {
+public class ControllerSS {
 
-    @FXML private Button skip;
+    @FXML private Button sss;
+    @FXML private Button xor;
     @FXML private Button splitbutton;
     @FXML private Button skip2;
     @FXML private Button savebutton;
     @FXML private Button exitbutton;
     @FXML private Button combinebutton;
+    @FXML private Button copybutton;
 
     @FXML private TextArea secretbox;
     @FXML private TextArea outputbox;
@@ -43,18 +45,22 @@ public class Controller {
 
 
     @FXML
-    public void printHello(ActionEvent event) throws IOException{
+    public void goTo(ActionEvent event) throws IOException{
         Stage stage;
         Parent root;
-        if(event.getSource()==skip){
+        if(event.getSource()==sss){
             //get reference to the button's stage
-            stage=(Stage) skip.getScene().getWindow();
+            stage=(Stage) sss.getScene().getWindow();
             //load up OTHER FXML document
-            root = FXMLLoader.load(getClass().getResource("sample2.fxml"));
-        }
-        else{
+            root = FXMLLoader.load(getClass().getResource("sss.fxml"));
+        } else if(event.getSource()==xor){
+            //get reference to the button's stage
+            stage=(Stage) xor.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("xor.fxml"));
+        } else {
             stage=(Stage) skip2.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
         }
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);
@@ -106,6 +112,7 @@ public class Controller {
 
             String[] s = MainSplit.split(secret, shares, thresh);
             outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
+            outputbox.setEditable(false);
         }
     }
 
@@ -114,17 +121,23 @@ public class Controller {
 
     @FXML
     public void saveFile(ActionEvent e) {
-        FileChooser fileChooser = new FileChooser();
 
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
+            FileChooser fileChooser = new FileChooser();
 
-        fileChooser.setInitialFileName("Shares.txt");
-        File file = fileChooser.showSaveDialog(Main.stage);
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
 
-        if(file != null){
-            SaveFile(outputbox.getText(), file);
+
+        //TODO: implement save multiple files
+        if (!tik1.isSelected()) {
+
+            fileChooser.setInitialFileName("Shares.txt");
+            File file = fileChooser.showSaveDialog(Main.stage);
+
+            if (file != null) {
+                SaveFile(outputbox.getText(), file);
+            }
         }
 
     }
@@ -138,7 +151,7 @@ public class Controller {
             fileWriter.write(content);
             fileWriter.close();
         } catch (IOException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerSS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -157,7 +170,7 @@ public class Controller {
             alert.showAndWait();
 
             //TODO: implement share validation
-        } else if (shareboxcombine.getText().isEmpty()) {
+        } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
@@ -182,6 +195,7 @@ public class Controller {
 
             String s = MainReconstruct.reconstruct(numshares, shares, key);
             outputboxcombine.setText(s);
+            outputboxcombine.setEditable(false);
         }
     }
 
@@ -189,10 +203,33 @@ public class Controller {
 
 
     ///////////////////////////////////////////////////////////////////////
-    /////////////////////////MAIN//////////////////////////////////////////
+    /////////////////////////UTILS//////////////////////////////////////////
     @FXML
     public void quit(ActionEvent e) {
         exit();
+    }
+
+
+    //FOR TESTING PURPOSES
+    @FXML
+    public void copyIt(ActionEvent e) {
+        String out = outputbox.getText();
+        int share = Integer.parseInt(sharebox.getText());
+
+        String[] list = out.split("\\n");
+        String shares = "";
+
+        String thresh = list[share+3];
+        String key = list[share+6];
+        for (int i = 0; i < Integer.parseInt(thresh); i++ ){
+            shares = shares.concat(list[i+1] + "\n");
+        }
+
+        shareboxnumcombine.setText(thresh);
+        shareboxcombine.setText(shares);
+        keyboxcombine.setText(key);
+
+
     }
 
 
@@ -201,6 +238,21 @@ public class Controller {
     {
         return text.matches("[0-9]*");
     }
+
+    private boolean isGoodShare(String text)
+    {
+        boolean b = true;
+        String[] split = text.split("\\n");
+        for (String s : split) {
+            if (!s.matches("(\\((\\d+)\\,(\\d+)\\))")) {
+                System.out.println("Share is not valid");
+                System.out.println(s);
+                b = false;
+            }
+        }
+        return b;
+    }
+
 
 
 }

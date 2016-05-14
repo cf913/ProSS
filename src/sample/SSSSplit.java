@@ -11,18 +11,21 @@ import java.util.Random;
 
 import static java.lang.Math.pow;
 
-public class MainSplit {
+public class SSSSplit {
 
     // PRIME NUMBER HAS TO BE BIGGER THAN SECRET!!!
-    private static final BigInteger prime = new BigInteger(String.valueOf("73092066093226693205369231494727664060618592077774520502905049396258760143111"));
+    //private static final BigInteger prime = new BigInteger(String.valueOf("73092066093226693205369231494727664060618592077774520502905049396258760143111"));
 
     public static String[] split(String message, int shares, int threshold) {
 
         String msg = message;
         BigInteger secret    = new BigInteger(msg.getBytes());
-        System.out.println("The secret is: " + secret);
+
 
         BigInteger prime = newPrime(secret.bitLength());
+        if ((secret.compareTo(prime)>= 0)) {
+            prime = newPrime((secret.multiply(BigInteger.valueOf(2))).bitLength());
+        }
 
 
         // need polynomial of degree threshold - 1 to recover secret
@@ -35,17 +38,6 @@ public class MainSplit {
         String newShares;
         newShares = split_shares(coefs, shares, prime);
 
-
-        //Print shares in console
-        System.out.println(shares + " shares: ");
-        /*System.out.println("[");
-        for (Pair pair : newShares) {
-            System.out.println("(" + pair.getL() + "," + pair.getR() + ")");
-        }
-        System.out.println("]");
-        */
-        System.out.println("Shares:\n" + newShares);
-        System.out.println("key:" + prime);
         String[] result = new String[3];
         result[0] = newShares;
         result[1] = prime.toString();
@@ -58,20 +50,20 @@ public class MainSplit {
 
     // split secret into shares given polynomials and shares
     //return a list of shares
-    private static /*List<Pair<Integer,BigInteger>>*/ String split_shares(BigInteger[] coef, int shares, BigInteger prime) {
+    private static String split_shares(BigInteger[] coef, int shares, BigInteger prime) {
 
         //ArrayList<Pair<Integer, BigInteger>> newShares = new ArrayList<>();
         String newShares = "";
         for (int j = 1; j <= shares; j++) {
 
-            int k = j;
+            BigInteger k = BigInteger.valueOf(j);
             BigInteger v = coef[0];
 
+            System.out.println("PLOP:" + j);
             for (int i = 1; i < coef.length; i ++) {
-                v = (v.add(new BigInteger(String.valueOf((int)pow(k, i))).mod(prime).multiply(coef[i])).mod(prime)).mod(prime);
+                v = (v.add(k.pow(i).mod(prime).multiply(coef[i])).mod(prime)).mod(prime);
             }
 
-            //newShares.add(new Pair<>(k,v));
             newShares = newShares.concat("(" + k + "," + v + ")\n");
 
         }
@@ -88,11 +80,13 @@ public class MainSplit {
 
         BigInteger[] coef = new BigInteger[degree+1];  //coef[0] + plus coefs of degree d
 
-        for (int i = 0; i < degree; i++) {
-            coef[i+1] = getRandomBigInteger(secret.subtract(BigInteger.ONE));
+        coef[0] = new BigInteger(String.valueOf(secret));
+
+        for (int i = 1; i <= degree; i++) {
+            coef[i] = getRandomBigInteger(secret.subtract(BigInteger.ONE));
         }
 
-        coef[0] = new BigInteger(String.valueOf(secret));
+
 
         return coef;
     }
