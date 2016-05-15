@@ -110,7 +110,7 @@ public class ControllerSS {
             int thresh = Integer.parseInt(threshbox.getText());
             System.out.println("Threshold: " + thresh);
 
-            String[] s = MainSplit.split(secret, shares, thresh);
+            String[] s = SSSSplit.split(secret, shares, thresh);
             outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
             outputbox.setEditable(false);
         }
@@ -193,7 +193,7 @@ public class ControllerSS {
             BigInteger key = new BigInteger(keyboxcombine.getText());
             System.out.println("Key: " + key);
 
-            String s = MainReconstruct.reconstruct(numshares, shares, key);
+            String s = SSSReconstruct.reconstruct(numshares, shares, key);
             outputboxcombine.setText(s);
             outputboxcombine.setEditable(false);
         }
