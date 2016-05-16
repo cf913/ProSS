@@ -23,10 +23,12 @@ public class ControllerSS {
     @FXML private Button sss;
     @FXML private Button xor;
     @FXML private Button splitbutton;
+    @FXML private Button splitbuttonxor;
     @FXML private Button skip2;
     @FXML private Button savebutton;
     @FXML private Button exitbutton;
     @FXML private Button combinebutton;
+    @FXML private Button combinebuttonxor;
     @FXML private Button copybutton;
 
     @FXML private TextArea secretbox;
@@ -92,27 +94,45 @@ public class ControllerSS {
             alert.showAndWait();
 
 
-        } else if (threshbox.getText().isEmpty() || !isInt(threshbox.getText())
-                || Integer.parseInt(threshbox.getText()) <= 0
-                || Integer.parseInt(threshbox.getText()) > Integer.parseInt(sharebox.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Enter a valid threshold =< number of shares");
-            alert.showAndWait();
-            ////////////////////////////////////////////////////////////
-
         } else {
-            String secret = secretbox.getText();
-            System.out.println("Secret: " + secret);
-            int shares = Integer.parseInt(sharebox.getText());
-            System.out.println("Shares: " + shares);
-            int thresh = Integer.parseInt(threshbox.getText());
-            System.out.println("Threshold: " + thresh);
+            ////////////////////////////////////////////////////////////
+            ////////////////SS//////////////////////////////////////////
 
-            String[] s = SSSSplit.split(secret, shares, thresh);
-            outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
-            outputbox.setEditable(false);
+            if (e.getSource()==splitbutton) {
+
+                if (threshbox.getText().isEmpty() || !isInt(threshbox.getText())
+                        || Integer.parseInt(threshbox.getText()) <= 0
+                        || Integer.parseInt(threshbox.getText()) > Integer.parseInt(sharebox.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("Enter a valid threshold =< number of shares");
+                    alert.showAndWait();
+                }
+
+                String secret = secretbox.getText();
+                //System.out.println("Secret: " + secret);
+                int shares = Integer.parseInt(sharebox.getText());
+                //System.out.println("Shares: " + shares);
+                int thresh = Integer.parseInt(threshbox.getText());
+                //System.out.println("Threshold: " + thresh);
+
+                String[] s = SSSSplit.split(secret, shares, thresh);
+                outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
+                outputbox.setEditable(false);
+
+            ////////////////////////////////////////////////////////////////
+            ////////////////////XOR/////////////////////////////////////
+            } else if (e.getSource()==splitbuttonxor) {
+
+                String secret = secretbox.getText();
+                System.out.println("secret " + secret);
+                int shares = Integer.parseInt(sharebox.getText());
+                System.out.println("shares " + shares);
+                String s = XORSplit.split(secret, shares);
+                outputbox.setText("Shares:\n" + s);
+                outputbox.setEditable(false);
+            }
         }
     }
 
@@ -169,33 +189,46 @@ public class ControllerSS {
             alert.setContentText("Share number not valid");
             alert.showAndWait();
 
-            //TODO: implement share validation
-        } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Shares are not valid");
-            alert.showAndWait();
+        } else if (e.getSource() == combinebutton) {
+            if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Shares are not valid");
+                alert.showAndWait();
+            } else if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Key not valid");
+                alert.showAndWait();
+            } else {
+                int numshares = Integer.parseInt(shareboxnumcombine.getText());
+                String shares = shareboxcombine.getText();
+                BigInteger key = new BigInteger(keyboxcombine.getText());
+
+                String s = SSSReconstruct.reconstruct(numshares, shares, key);
+                outputboxcombine.setText(s);
+                outputboxcombine.setEditable(false);
+            }
 
 
-        } else if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Key not valid");
-            alert.showAndWait();
+        } else if (e.getSource() == combinebuttonxor) {
+            if (shareboxcombine.getText().isEmpty() || !isGoodShareXor(shareboxcombine.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Shares are not valid!!!!!");
+                alert.showAndWait();
+            } else {
+                int numshares = Integer.parseInt(shareboxnumcombine.getText());
+                String shares = shareboxcombine.getText();
 
-        } else {
-            int numshares = Integer.parseInt(shareboxnumcombine.getText());
-            System.out.println("Number of shares: " + numshares);
-            String shares = shareboxcombine.getText();
-            System.out.println("Shares: \n" + shares);
-            BigInteger key = new BigInteger(keyboxcombine.getText());
-            System.out.println("Key: " + key);
+                String s = XORSplit.combine(numshares, shares);
+                outputboxcombine.setText(s);
+                outputboxcombine.setEditable(false);
 
-            String s = SSSReconstruct.reconstruct(numshares, shares, key);
-            outputboxcombine.setText(s);
-            outputboxcombine.setEditable(false);
+            }
         }
     }
 
@@ -247,6 +280,18 @@ public class ControllerSS {
             if (!s.matches("(\\((\\d+)\\,(\\d+)\\))")) {
                 System.out.println("Share is not valid");
                 System.out.println(s);
+                b = false;
+            }
+        }
+        return b;
+    }
+
+    private boolean isGoodShareXor(String text)
+    {
+        boolean b = true;
+        String[] split = text.split("\\n");
+        for (String s : split) {
+            if (!isInt(s)) {
                 b = false;
             }
         }

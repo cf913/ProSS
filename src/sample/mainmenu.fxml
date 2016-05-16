@@ -21,9 +21,9 @@
             <Font size="23.0" />
          </font>
       </Button>
-      <Button layoutX="310.0" layoutY="260.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="XOR" fx:id="xor">
+      <Button layoutX="310.0" layoutY="260.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Simple&#10;XOR" textAlignment="CENTER" fx:id="xor">
          <font>
-            <Font size="23.0" />
+            <Font size="20.0" />
          </font>
       </Button>
    </children>
