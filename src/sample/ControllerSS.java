@@ -29,7 +29,10 @@ public class ControllerSS {
     @FXML private Button exitbutton;
     @FXML private Button combinebutton;
     @FXML private Button combinebuttonxor;
-    @FXML private Button copybutton;
+    @FXML private Button clearbuttonsplit;
+    @FXML private Button clearbuttoncombine;
+    @FXML private Button clearbuttonsplitxor;
+    @FXML private Button clearbuttoncombinexor;
 
     @FXML private TextArea secretbox;
     @FXML private TextArea outputbox;
@@ -118,6 +121,7 @@ public class ControllerSS {
                 //System.out.println("Threshold: " + thresh);
 
                 String[] s = SSSSplit.split(secret, shares, thresh);
+                secretbox.setText("");
                 outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
                 outputbox.setEditable(false);
 
@@ -130,6 +134,7 @@ public class ControllerSS {
                 int shares = Integer.parseInt(sharebox.getText());
                 System.out.println("shares " + shares);
                 String s = XORSplit.split(secret, shares);
+                secretbox.setText("");
                 outputbox.setText("Shares:\n" + s);
                 outputbox.setEditable(false);
             }
@@ -150,7 +155,7 @@ public class ControllerSS {
 
 
         //TODO: implement save multiple files
-        if (!tik1.isSelected()) {
+        //if (!tik1.isSelected()) {
 
             fileChooser.setInitialFileName("Shares.txt");
             File file = fileChooser.showSaveDialog(Main.stage);
@@ -158,7 +163,7 @@ public class ControllerSS {
             if (file != null) {
                 SaveFile(outputbox.getText(), file);
             }
-        }
+        //}
 
     }
 
@@ -238,6 +243,31 @@ public class ControllerSS {
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////UTILS//////////////////////////////////////////
     @FXML
+    public void clearInput(ActionEvent e) {
+
+        if (e.getSource() == clearbuttonsplit) {
+            secretbox.setText("");
+            sharebox.setText("");
+            threshbox.setText("");
+        }
+
+        if (e.getSource() == clearbuttoncombine) {
+            shareboxcombine.setText("");
+            keyboxcombine.setText("");
+            shareboxnumcombine.setText("");
+        }
+        if (e.getSource() == clearbuttonsplitxor) {
+            secretbox.setText("");
+            sharebox.setText("");
+        }
+
+        if (e.getSource() == clearbuttoncombinexor) {
+            shareboxcombine.setText("");
+            shareboxnumcombine.setText("");
+        }
+    }
+
+    @FXML
     public void quit(ActionEvent e) {
         exit();
     }
@@ -264,8 +294,6 @@ public class ControllerSS {
 
 
     }
-
-
 
     private boolean isInt(String text)
     {

@@ -50,6 +50,11 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="clearbuttonsplitxor" layoutX="18.0" layoutY="297.0" mnemonicParsing="false" onAction="#clearInput" prefHeight="31.0" prefWidth="93.0" text="Clear">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </content>
@@ -59,7 +64,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="1097.0">
                             <children>
                                 <TextField fx:id="shareboxnumcombine" layoutX="21.0" layoutY="36.0" promptText="Enter number of shares" />
-                                <TextArea fx:id="shareboxcombine" layoutX="21.0" layoutY="88.0" prefHeight="97.0" prefWidth="436.0" promptText="Enter your shares&#10;: &#10;&#10;(X,XXXXXXX...XXXXX) &#10;" />
+                                <TextArea fx:id="shareboxcombine" layoutX="21.0" layoutY="88.0" prefHeight="97.0" prefWidth="436.0" promptText="Enter your shares&#10;: &#10;XXXXXXX...XXXXX &#10;" />
                                 <Label layoutX="21.0" layoutY="71.0" text="Shares" />
                                 <Label layoutX="22.0" layoutY="17.0" text="Number of shares" />
                                 <Separator layoutX="465.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="33.0" />
@@ -74,6 +79,11 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="clearbuttoncombinexor" layoutX="18.0" layoutY="297.0" mnemonicParsing="false" onAction="#clearInput" prefHeight="31.0" prefWidth="93.0" text="Clear">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </content>
