@@ -26,5 +26,15 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="picturesharing" layoutX="61.0" layoutY="158.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Picture sharing">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="picturesharing1" layoutX="310.0" layoutY="158.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Asmuth-Bloom">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
