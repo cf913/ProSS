@@ -52,7 +52,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <CheckBox fx:id="tik1" layoutX="505.0" layoutY="263.0" mnemonicParsing="false" text="One share per file (not implemented yet)" />
+                        <CheckBox fx:id="tik1" layoutX="505.0" layoutY="263.0" mnemonicParsing="false" text="One share per file" />
                         <Button fx:id="copybutton" layoutX="870.0" layoutY="297.0" mnemonicParsing="false" onAction="#copyIt" prefHeight="31.0" prefWidth="93.0" text="Copy">
                            <font>
                               <Font size="15.0" />
@@ -92,6 +92,16 @@
                         <Button fx:id="clearbuttoncombine" layoutX="22.0" layoutY="297.0" mnemonicParsing="false" onAction="#clearInput" prefHeight="31.0" prefWidth="93.0" text="Clear">
                            <font>
                               <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="loadmultsharesbutton" layoutX="359.0" layoutY="158.0" mnemonicParsing="false" onAction="#loadShares2" prefHeight="22.0" prefWidth="93.0" text="Load &gt;1 files">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="loadsharesbutton1" layoutX="261.0" layoutY="158.0" mnemonicParsing="false" onAction="#loadShares" prefHeight="22.0" prefWidth="93.0" text="Load file">
+                           <font>
+                              <Font size="11.0" />
                            </font>
                         </Button>
                      </children>

@@ -10,9 +10,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,13 +25,18 @@ public class ControllerSS {
 
     @FXML private Button sss;
     @FXML private Button xor;
+    @FXML private Button ab;
     @FXML private Button splitbutton;
     @FXML private Button splitbuttonxor;
+    @FXML private Button splitbuttonab;
     @FXML private Button skip2;
-    @FXML private Button savebutton;
-    @FXML private Button exitbutton;
+    @FXML private Button copybutton;
+    @FXML private Button copybuttonab;
+    @FXML private Button loadsharesbutton;
+    @FXML private Button loadmultsharesbutton;
     @FXML private Button combinebutton;
     @FXML private Button combinebuttonxor;
+    @FXML private Button combinebuttonab;
     @FXML private Button clearbuttonsplit;
     @FXML private Button clearbuttoncombine;
     @FXML private Button clearbuttonsplitxor;
@@ -63,6 +71,11 @@ public class ControllerSS {
             stage=(Stage) xor.getScene().getWindow();
             //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("xor.fxml"));
+        } else if(event.getSource()==ab){
+            //get reference to the button's stage
+            stage=(Stage) ab.getScene().getWindow();
+            //load up OTHER FXML document
+            root = FXMLLoader.load(getClass().getResource("ab.fxml"));
         } else {
             stage=(Stage) skip2.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
@@ -101,7 +114,7 @@ public class ControllerSS {
             ////////////////////////////////////////////////////////////
             ////////////////SS//////////////////////////////////////////
 
-            if (e.getSource()==splitbutton) {
+            if (e.getSource()==splitbutton || e.getSource()==splitbuttonab) {
 
                 if (threshbox.getText().isEmpty() || !isInt(threshbox.getText())
                         || Integer.parseInt(threshbox.getText()) <= 0
@@ -114,16 +127,24 @@ public class ControllerSS {
                 }
 
                 String secret = secretbox.getText();
-                //System.out.println("Secret: " + secret);
                 int shares = Integer.parseInt(sharebox.getText());
-                //System.out.println("Shares: " + shares);
                 int thresh = Integer.parseInt(threshbox.getText());
-                //System.out.println("Threshold: " + thresh);
 
-                String[] s = SSSSplit.split(secret, shares, thresh);
-                secretbox.setText("");
-                outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
-                outputbox.setEditable(false);
+                String[] s;
+
+                if (e.getSource()==splitbutton) {
+                    s = SSSSplit.split(secret, shares, thresh);
+                    secretbox.setText("");
+                    outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
+                    outputbox.setEditable(false);
+                } else {
+                    s = ABS.split(secret, shares, thresh);
+                    secretbox.setText("");
+                    outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[1]+ "\n\nKey:\n" + s[2]);
+                    outputbox.setEditable(false);
+                }
+
+
 
             ////////////////////////////////////////////////////////////////
             ////////////////////XOR/////////////////////////////////////
@@ -142,7 +163,67 @@ public class ControllerSS {
     }
 
 
+    @FXML
+    public void loadShares(ActionEvent e) throws FileNotFoundException {
+        String[] res;
+        FileChooser fileChooser = new FileChooser();
 
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showOpenDialog(Main.stage);
+        res = readfile(file);
+        shareboxcombine.setText(res[0]);
+        keyboxcombine.setText(res[1]);
+
+    }
+
+    private String[] readfile(File file) throws FileNotFoundException {
+        String[] res = new String[2];
+        Scanner s = new Scanner(file).useDelimiter("\\n");
+        String shares = "";
+        String token;
+        String key = "";
+        while (s.hasNext()) {
+            token = s.next();
+            if (isGoodShare(token)) { // check if next token is an int
+                shares = shares.concat(token + "\n");
+            }
+
+            if (isInt(token)) { // check if next token is an int
+                key = token;
+            }
+        }
+        shareboxcombine.setText(shares);
+        res[0] = shares;
+        res[1] = key;
+        return res;
+
+    }
+
+    @FXML
+    public void loadShares2(ActionEvent e) throws FileNotFoundException {
+        String[] temp = new String[2];
+        String[] res = new String[2];
+        res[0] = "";
+        FileChooser fileChooser = new FileChooser();
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        List<File> list = fileChooser.showOpenMultipleDialog(Main.stage);
+
+        for (File file : list) {
+            System.out.println("CLOP!!!");
+            temp = readfile(file);
+            res[0] = res[0].concat(temp[0]);
+        }
+        res[1] = temp[1];
+        shareboxcombine.setText(res[0]);
+        keyboxcombine.setText(res[1]);
+
+    }
 
     @FXML
     public void saveFile(ActionEvent e) {
@@ -155,7 +236,7 @@ public class ControllerSS {
 
 
         //TODO: implement save multiple files
-        //if (!tik1.isSelected()) {
+        if (!tik1.isSelected()) {
 
             fileChooser.setInitialFileName("Shares.txt");
             File file = fileChooser.showSaveDialog(Main.stage);
@@ -163,7 +244,31 @@ public class ControllerSS {
             if (file != null) {
                 SaveFile(outputbox.getText(), file);
             }
-        //}
+        } else {
+
+            String out = outputbox.getText();
+            int share = Integer.parseInt(sharebox.getText());
+
+            String[] list = out.split("\\n");
+            String shares = "";
+
+            String key = list[share + 6];
+
+
+            fileChooser.setInitialFileName("Share0.txt");
+            File file = fileChooser.showSaveDialog(Main.stage);
+            if (file != null) {
+                SaveFile("Share 0:\n" + list[1] + "\nKey;\n" + key , file);
+            }
+
+            for (int i = 1; i < share; i++) {
+                System.out.println(file.getParent());
+                SaveFile("Share "+i+":\n" + list[i+1] + "\nKey; \n" + key , new File(file.getParent() + "/Share" + i + ".txt"));
+
+            }
+
+
+        }
 
     }
 
@@ -194,25 +299,35 @@ public class ControllerSS {
             alert.setContentText("Share number not valid");
             alert.showAndWait();
 
-        } else if (e.getSource() == combinebutton) {
-            if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error");
-                alert.setContentText("Shares are not valid");
-                alert.showAndWait();
-            } else if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
+        } else if (e.getSource() == combinebutton || e.getSource() == combinebuttonab) {
+
+
+            if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Error");
                 alert.setContentText("Key not valid");
                 alert.showAndWait();
+                return;
+            } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Shares are not valid");
+                alert.showAndWait();
             } else {
+
                 int numshares = Integer.parseInt(shareboxnumcombine.getText());
                 String shares = shareboxcombine.getText();
-                BigInteger key = new BigInteger(keyboxcombine.getText());
 
-                String s = SSSReconstruct.reconstruct(numshares, shares, key);
+
+                String s;
+                BigInteger key = new BigInteger(keyboxcombine.getText());
+                if (e.getSource() == combinebutton) {
+                    s = SSSReconstruct.reconstruct(numshares, shares, key);
+                } else {
+                    s = ABS.reconstruct(numshares, shares, key);
+                }
                 outputboxcombine.setText(s);
                 outputboxcombine.setEditable(false);
             }
@@ -276,23 +391,24 @@ public class ControllerSS {
     //FOR TESTING PURPOSES
     @FXML
     public void copyIt(ActionEvent e) {
+
         String out = outputbox.getText();
         int share = Integer.parseInt(sharebox.getText());
 
         String[] list = out.split("\\n");
         String shares = "";
 
-        String thresh = list[share+3];
-        String key = list[share+6];
-        for (int i = 0; i < Integer.parseInt(thresh); i++ ){
-            shares = shares.concat(list[i+1] + "\n");
+        String thresh = list[share + 3];
+        for (int i = 0; i < Integer.parseInt(thresh); i++) {
+            shares = shares.concat(list[i + 1] + "\n");
         }
 
-        shareboxnumcombine.setText(thresh);
-        shareboxcombine.setText(shares);
+        String key = list[share + 6];
         keyboxcombine.setText(key);
 
 
+        shareboxnumcombine.setText(thresh);
+        shareboxcombine.setText(shares);
     }
 
     private boolean isInt(String text)

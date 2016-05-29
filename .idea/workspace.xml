@@ -7,12 +7,16 @@
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/sample/mainmenu.fxml" line="5" />
-    <bookmark url="file://$PROJECT_DIR$/src/sample/ABSplit.java" line="10" />
+    <bookmark url="file://$PROJECT_DIR$/src/sample/ABS.java" line="11" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/ab.fxml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/sample/ABSplit.java" afterPath="$PROJECT_DIR$/src/sample/ABS.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ABSplit.java" afterPath="$PROJECT_DIR$/src/sample/ABSplit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ControllerSS.java" afterPath="$PROJECT_DIR$/src/sample/ControllerSS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/mainmenu.fxml" afterPath="$PROJECT_DIR$/src/sample/mainmenu.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/sss.fxml" afterPath="$PROJECT_DIR$/src/sample/sss.fxml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,29 +76,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ControllerSS.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ControllerSS.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/ControllerSS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4158">
-              <caret line="247" column="8" selection-start-line="247" selection-start-column="8" selection-end-line="247" selection-end-column="8" />
-              <folding>
-                <element signature="e#9757#9758#0" expanded="false" />
-                <element signature="e#9779#9780#0" expanded="false" />
-                <element signature="e#10406#10407#0" expanded="false" />
-                <element signature="e#10451#10452#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="212">
+              <caret line="204" column="9" selection-start-line="204" selection-start-column="9" selection-end-line="204" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,8 +89,8 @@
       <file leaf-file-name="xor.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/xor.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-986">
+              <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -112,11 +99,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SSSReconstruct.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/SSSReconstruct.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="29" column="47" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="47" />
+            <state relative-caret-position="132">
+              <caret line="41" column="51" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,8 +136,8 @@
       <file leaf-file-name="SSSSplit.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/SSSSplit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="68" />
+            <state relative-caret-position="1188">
+              <caret line="66" column="68" selection-start-line="66" selection-start-column="68" selection-end-line="66" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -148,34 +145,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pair.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Pair.java">
+      <file leaf-file-name="ABS.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/ABS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="240">
+              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainmenu.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/mainmenu.fxml">
+      <file leaf-file-name="ABTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/ABTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ABSplit.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sample/ABSplit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+            <state relative-caret-position="738">
+              <caret line="41" column="44" selection-start-line="39" selection-start-column="16" selection-end-line="41" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -184,8 +168,21 @@
       <file leaf-file-name="sss.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/sss.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+            <state relative-caret-position="382">
+              <caret line="89" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ab.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/ab.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="522">
+              <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -227,16 +224,19 @@
         <option value="$PROJECT_DIR$/src/sample/sample2.fxml" />
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
         <option value="$PROJECT_DIR$/src/sample/MainReconstruct.java" />
-        <option value="$PROJECT_DIR$/src/sample/sss.fxml" />
         <option value="$PROJECT_DIR$/src/sample/SSSReconstruct.java" />
         <option value="$PROJECT_DIR$/src/sample/MainSplit.java" />
         <option value="$PROJECT_DIR$/src/sample/Testing.java" />
         <option value="$PROJECT_DIR$/src/sample/XORSplit.java" />
         <option value="$PROJECT_DIR$/src/sample/xor.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/ControllerSS.java" />
         <option value="$PROJECT_DIR$/src/sample/PicSplit.java" />
-        <option value="$PROJECT_DIR$/src/sample/mainmenu.fxml" />
         <option value="$PROJECT_DIR$/src/sample/ABSplit.java" />
+        <option value="$PROJECT_DIR$/src/sample/mainmenu.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/ABTest.java" />
+        <option value="$PROJECT_DIR$/src/sample/ab.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/ABS.java" />
+        <option value="$PROJECT_DIR$/src/sample/sss.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/ControllerSS.java" />
       </list>
     </option>
   </component>
@@ -294,7 +294,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="true" />
   </component>
-  <component name="RunManager" selected="Application.ABSplit">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Testing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -343,6 +343,46 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="sample.ABSplit" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="secret2" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ABS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="sample.ABS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="secret2" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ABTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="sample.ABTest" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -628,17 +668,21 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       <item index="1" class="java.lang.String" itemvalue="Application.Testing" />
       <item index="2" class="java.lang.String" itemvalue="Application.XORSplit" />
       <item index="3" class="java.lang.String" itemvalue="Application.ABSplit" />
+      <item index="4" class="java.lang.String" itemvalue="Application.ABS" />
+      <item index="5" class="java.lang.String" itemvalue="Application.ABTest" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.ABSplit" />
-        <item index="1" class="java.lang.String" itemvalue="Application.XORSplit" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Testing" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.ABTest" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ABS" />
+        <item index="2" class="java.lang.String" itemvalue="Application.ABSplit" />
+        <item index="3" class="java.lang.String" itemvalue="Application.XORSplit" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Testing" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -693,7 +737,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30426356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30426356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -776,29 +820,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ControllerSS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3672">
-          <caret line="222" column="40" selection-start-line="222" selection-start-column="40" selection-end-line="222" selection-end-column="40" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/SSSReconstruct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -842,9 +863,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -852,12 +871,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -904,9 +918,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -914,12 +926,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -966,9 +973,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -976,12 +981,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,9 +1029,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,12 +1037,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,9 +1067,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1084,12 +1075,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1108,9 +1094,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1118,12 +1102,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1159,10 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/xor.fxml">
+    <entry file="file://$PROJECT_DIR$/src/sample/mainmenu.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="810">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1172,8 +1151,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sss.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+        <state relative-caret-position="382">
+          <caret line="89" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -1181,33 +1160,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ControllerSS.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/xor.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4158">
-          <caret line="247" column="8" selection-start-line="247" selection-start-column="8" selection-end-line="247" selection-end-column="8" />
-          <folding>
-            <element signature="e#9757#9758#0" expanded="false" />
-            <element signature="e#9779#9780#0" expanded="false" />
-            <element signature="e#10406#10407#0" expanded="false" />
-            <element signature="e#10451#10452#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/SSSSplit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/mainmenu.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        <state relative-caret-position="-986">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -1225,30 +1181,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/SSSReconstruct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" column="47" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="72">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/SSSSplit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1188">
+          <caret line="66" column="68" selection-start-line="66" selection-start-column="68" selection-end-line="66" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ABSplit.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/ABS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+        <state relative-caret-position="240">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ab.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="88" column="60" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ABTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="44" selection-start-line="39" selection-start-column="16" selection-end-line="41" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/SSSReconstruct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="41" column="51" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ControllerSS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="204" column="9" selection-start-line="204" selection-start-column="9" selection-end-line="204" selection-end-column="9" />
           <folding />
         </state>
       </provider>
