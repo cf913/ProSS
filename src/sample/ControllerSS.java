@@ -215,7 +215,6 @@ public class ControllerSS {
         List<File> list = fileChooser.showOpenMultipleDialog(Main.stage);
 
         for (File file : list) {
-            System.out.println("CLOP!!!");
             temp = readfile(file);
             res[0] = res[0].concat(temp[0]);
         }
@@ -262,7 +261,6 @@ public class ControllerSS {
             }
 
             for (int i = 1; i < share; i++) {
-                System.out.println(file.getParent());
                 SaveFile("Share "+i+":\n" + list[i+1] + "\nKey; \n" + key , new File(file.getParent() + "/Share" + i + ".txt"));
 
             }

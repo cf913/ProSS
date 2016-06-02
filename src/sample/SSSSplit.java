@@ -18,6 +18,7 @@ public class SSSSplit {
 
     public static String[] split(String message, int shares, int threshold) {
 
+        final long start = System.nanoTime();
         String msg = message;
         BigInteger secret    = new BigInteger(msg.getBytes());
 
@@ -42,6 +43,7 @@ public class SSSSplit {
         result[0] = newShares;
         result[1] = prime.toString();
         result[2] = String.valueOf(threshold);
+        System.out.println("Runtime:" + (System.nanoTime() - start));
         return result;
 
     }
@@ -59,7 +61,7 @@ public class SSSSplit {
             BigInteger k = BigInteger.valueOf(j);
             BigInteger v = coef[0];
 
-            System.out.println("PLOP:" + j);
+
             for (int i = 1; i < coef.length; i ++) {
                 v = (v.add(k.pow(i).mod(prime).multiply(coef[i])).mod(prime)).mod(prime);
             }

@@ -13,7 +13,7 @@ public class XORSplit {
 
     public static String split(String message, int shares) {
 
-
+        //final long start = System.nanoTime();
         String result = "";
         BigInteger bitsize = new BigInteger(message.getBytes());
         //String binary = new BigInteger(message.getBytes()).toString(2);
@@ -31,13 +31,38 @@ public class XORSplit {
         for (String s: list) {
             result = result.concat(s+"\n");
         }
+        //System.out.println("Runtime:" + (System.nanoTime() - start));
+        return result;
+    }
+
+    //for VSS only
+    public static String split(int message, int shares, int xor) {
+
+        //final long start = System.nanoTime();
+        String result = "";
+        BigInteger bitsize = (new BigInteger(String.valueOf(message)));
+        //String binary = new BigInteger(message.getBytes()).toString(2);
+
+
+        String[] list = newshares(bitsize, shares);
+        BigInteger px = computeXor(bitsize, list);
+        list[shares-1] = String.valueOf(px);
+
+
+
+        //BigInteger secret = computeXor(list);
+
+        //System.out.println("Secret : " + new String(secret.toByteArray()));
+        for (String s: list) {
+            result = result.concat(s+"\n");
+        }
+        //System.out.println("Runtime:" + (System.nanoTime() - start));
         return result;
     }
 
     public static String combine(int num, String shares) {
+        final long start = System.nanoTime();
         String[] list = shares.split("\\n");
-        System.out.println("Length: " + list.length);
-        System.out.println("numshares: " + num);
         if (list.length != num) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -47,8 +72,17 @@ public class XORSplit {
             return "";
         }
         BigInteger result = computeXor(list);
-
+        System.out.println("Runtime:" + (System.nanoTime() - start));
         return new String(result.toByteArray());
+
+    }
+    //only for VSS
+    public static String combine(String shares) {
+        //final long start = System.nanoTime();
+        String[] list = shares.split("\\n");
+        BigInteger result = computeXor(list);
+        //System.out.println("Runtime:" + (System.nanoTime() - start));
+        return String.valueOf(result);
 
     }
 
@@ -74,10 +108,17 @@ public class XORSplit {
         String[] list = new String[shares];
 
         for (int i = 0; i < list.length-1; i++) {
-            BigInteger b = getRandomBigIntegerSameBitLength(bitsize);
+            //for VSS only
+            BigInteger b = SSSSplit.getRandomBigInteger(new BigInteger("225"));
+
+
+            //else uncomment//
+            //BigInteger b = getRandomBigIntegerSameBitLength(bitsize);
+
+
             list[i] = String.valueOf(b);
 
-            System.out.println("Sh" + i + ": " + list[i]);
+            //System.out.println("Sh" + i + ": " + list[i]);
         }
 
         return list;

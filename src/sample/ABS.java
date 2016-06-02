@@ -9,19 +9,15 @@ import java.math.BigInteger;
 public class ABS {
 
     private static BigInteger key;
-    public static void main(String[] args) {
-
-        String[] list = split("Hello", 4, 4);
-
-    }
 
     public static String[] split(String message, int shares, int threshold) {
 
+        final long start = System.nanoTime();
         String[] results = new String[3];
 
         String msg = message;
         BigInteger secret    = new BigInteger(msg.getBytes());
-        System.out.println("Secret: " + secret);
+       // System.out.println("Secret: " + secret);
 
         BigInteger[] m = new BigInteger[shares + 1];
 
@@ -49,7 +45,7 @@ public class ABS {
             }
             p++;
         } while (left.compareTo(right) >= 0);
-        System.out.println("rounds" + p + "\n" + left + "\n" + right);
+        //System.out.println("rounds" + p + "\n" + left + "\n" + right);
 
 
 
@@ -60,40 +56,19 @@ public class ABS {
         BigInteger alpha = getAlpha(m, secret,threshold);
         BigInteger bloom = (secret.add(m[0].multiply(alpha)));
 
-        System.out.println("bloom: " + bloom);
+       // System.out.println("bloom: " + bloom);
         String newshares = computShares(temp, bloom, shares);
         results[0] = newshares;
         results[1] = String.valueOf(threshold);
         results[2] = String.valueOf(key);
 
-
-        ///////////////////////////////////////
-//        BigInteger bigm = BigInteger.ONE;
-//        for (int i = 1; i <= shares; i++) {
-//            bigm = bigm.multiply(m[i]);
-//        }
-//        System.out.println("bigm: " + bigm);
-//
-//        String[] list = newshares.split("\\n");
-//
-//        BigInteger res = BigInteger.ZERO;
-//        for (int i = 0; i < list.length; i++) {
-//            String nobracket = list[i].replaceAll("[\\[\\](){}]", "");
-//            String[] s = nobracket.split(",");
-//            BigInteger a = new BigInteger(s[1]);
-//            BigInteger b = bigm.divide(new BigInteger(s[1]));
-//            BigInteger[] eu = euclid(a,b);
-//            res = res.add((new BigInteger(s[0])).multiply(eu[1].multiply(b)));
-//        }
-//        System.out.println("res: " + res);
-//        System.out.println("secret: " + (new BigInteger(String.valueOf(res))).mod(bigm).mod(key));
-
-        ///////////////////////////////////////
+        System.out.println("Runtime:" + (System.nanoTime() - start));
         return results;
     }
 
     public static String reconstruct(int num, String shares, BigInteger key) {
 
+        final long start = System.nanoTime();
         String result;
         String[] list = shares.split("\\n");
 
@@ -116,7 +91,8 @@ public class ABS {
             res = res.add((new BigInteger(s[0])).multiply(eu[1].multiply(b)));
         }
         result = new String(res.mod(bigm).mod(key).toByteArray());
-        System.out.println("Secret: " + res.mod(bigm).mod(key));
+        //System.out.println("Secret: " + res.mod(bigm).mod(key));
+        System.out.println("Runtime:" + (System.nanoTime() - start));
         return result;
     }
 
@@ -139,7 +115,7 @@ public class ABS {
             BigInteger mi = m[i];
             BigInteger si = bloom.mod(m[i]);
             results = results.concat("(" + si + "," + mi + ")\n");
-            System.out.println("(" + si + "," + mi + ")");
+            //System.out.println("(" + si + "," + mi + ")");
 
         }
 
@@ -188,7 +164,7 @@ public class ABS {
         for (int i = 1; i <= thresh; i++) {
             temp = temp.multiply(m[i]);
         }
-        System.out.println("bitlength: " + temp.bitLength());
+        //System.out.println("bitlength: " + temp.bitLength());
         alpha = SSSSplit.newPrime(temp.bitLength());
         int i = 0;
 
@@ -198,11 +174,11 @@ public class ABS {
             alpha = SSSSplit.newPrime(alpha.bitLength()-i);
             i++;
         }
-        System.out.println("i: " + i);
+        //System.out.println("i: " + i);
 
-        System.out.println("S+al: " + (secret.add(m[0].multiply(alpha))));
-        System.out.println("temp: " + temp);
-        System.out.println("alph: " + alpha);
+        //System.out.println("S+al: " + (secret.add(m[0].multiply(alpha))));
+        //System.out.println("temp: " + temp);
+        //System.out.println("alph: " + alpha);
 
 
         return alpha;

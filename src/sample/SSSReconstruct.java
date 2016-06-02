@@ -13,6 +13,7 @@ public class SSSReconstruct {
 
     public static String reconstruct(int numshares, String shares, BigInteger prime) {
 
+        final long start = System.nanoTime();
         String result;
 
         ArrayList<Pair<Integer, BigInteger>> newShares = new ArrayList<>();
@@ -40,6 +41,7 @@ public class SSSReconstruct {
 
         BigInteger lesecret = reconstruct_shares(newShares,prime);
         result = new String(lesecret.toByteArray());
+        System.out.println("Runtime:" + (System.nanoTime() - start));
         return result;
     }
 
