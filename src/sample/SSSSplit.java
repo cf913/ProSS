@@ -48,6 +48,38 @@ public class SSSSplit {
 
     }
 
+    public static String[] splitVSS(int message, int shares, int threshold) {
+
+        //final long start = System.nanoTime();
+        BigInteger secret    = new BigInteger(String.valueOf(message));
+
+
+        BigInteger prime = newPrime(8); // so that prime < 256
+        while ((secret.compareTo(prime)>= 0)) {
+
+            prime = newPrime(8);
+        }
+
+        // need polynomial of degree threshold - 1 to recover secret
+        int degree = threshold - 1;
+
+        BigInteger[] coefs;
+        coefs = newPolynomial(degree, secret);
+
+        // split secret into n shares
+        String newShares;
+        newShares = split_shares(coefs, shares, prime);
+
+        String[] result = new String[3];
+        result[0] = newShares;
+        result[1] = prime.toString();
+        result[2] = String.valueOf(threshold);
+        //System.out.println("Runtime:" + (System.nanoTime() - start));
+        return result;
+
+    }
+
+
 
 
     // split secret into shares given polynomials and shares

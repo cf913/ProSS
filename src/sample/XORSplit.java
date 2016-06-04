@@ -36,7 +36,7 @@ public class XORSplit {
     }
 
     //for VSS only
-    public static String split(int message, int shares, int xor) {
+    public static String splitVSS(int message, int shares) {
 
         //final long start = System.nanoTime();
         String result = "";
@@ -44,7 +44,7 @@ public class XORSplit {
         //String binary = new BigInteger(message.getBytes()).toString(2);
 
 
-        String[] list = newshares(bitsize, shares);
+        String[] list = newsharesPSS(shares);
         BigInteger px = computeXor(bitsize, list);
         list[shares-1] = String.valueOf(px);
 
@@ -77,7 +77,7 @@ public class XORSplit {
 
     }
     //only for VSS
-    public static String combine(String shares) {
+    public static String combineVSS(String shares) {
         //final long start = System.nanoTime();
         String[] list = shares.split("\\n");
         BigInteger result = computeXor(list);
@@ -103,22 +103,27 @@ public class XORSplit {
     }
 
 
+    private static String[] newsharesPSS(int shares) {
+        String[] list = new String[shares];
 
+        for (int i = 0; i < list.length-1; i++) {
+
+            BigInteger b = SSSSplit.getRandomBigInteger(new BigInteger("225"));
+            list[i] = String.valueOf(b);
+
+        }
+
+        return list;
+
+    }
     public static String[] newshares(BigInteger bitsize, int shares) {
         String[] list = new String[shares];
 
         for (int i = 0; i < list.length-1; i++) {
-            //for VSS only
-            BigInteger b = SSSSplit.getRandomBigInteger(new BigInteger("225"));
 
-
-            //else uncomment//
-            //BigInteger b = getRandomBigIntegerSameBitLength(bitsize);
-
-
+            BigInteger b = getRandomBigIntegerSameBitLength(bitsize);
             list[i] = String.valueOf(b);
 
-            //System.out.println("Sh" + i + ": " + list[i]);
         }
 
         return list;

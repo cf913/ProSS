@@ -6,9 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import picture.Picture;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -23,14 +31,18 @@ import static javafx.application.Platform.exit;
 
 public class ControllerSS {
 
+
+
     @FXML private Button sss;
     @FXML private Button xor;
     @FXML private Button ab;
+    @FXML private Button pss;
     @FXML private Button splitbutton;
     @FXML private Button splitbuttonxor;
     @FXML private Button splitbuttonab;
-    @FXML private Button skip2;
-    @FXML private Button copybutton;
+    @FXML private Button splitbuttonpss;
+    @FXML private Button backtomain;
+    @FXML private Button gotofilebutton;
     @FXML private Button copybuttonab;
     @FXML private Button loadsharesbutton;
     @FXML private Button loadmultsharesbutton;
@@ -45,7 +57,13 @@ public class ControllerSS {
     @FXML private TextArea secretbox;
     @FXML private TextArea outputbox;
 
+    @FXML private ImageView pssview;
+    @FXML private ImageView outputpssview;
+    @FXML private ImageView plop;
+
+
     @FXML private TextField sharebox;
+    @FXML private TextField secretboxpss;
     @FXML private TextField threshbox;
 
     @FXML private TextField shareboxnumcombine;
@@ -55,6 +73,8 @@ public class ControllerSS {
 
 
     @FXML private CheckBox tik1;
+    @FXML private CheckBox xortic;
+    @FXML private CheckBox sstic;
 
 
     @FXML
@@ -62,28 +82,28 @@ public class ControllerSS {
         Stage stage;
         Parent root;
         if(event.getSource()==sss){
-            //get reference to the button's stage
             stage=(Stage) sss.getScene().getWindow();
-            //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("sss.fxml"));
         } else if(event.getSource()==xor){
-            //get reference to the button's stage
             stage=(Stage) xor.getScene().getWindow();
-            //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("xor.fxml"));
         } else if(event.getSource()==ab){
-            //get reference to the button's stage
             stage=(Stage) ab.getScene().getWindow();
-            //load up OTHER FXML document
             root = FXMLLoader.load(getClass().getResource("ab.fxml"));
+        } else if(event.getSource()==pss){
+            stage=(Stage) pss.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("pss.fxml"));
+
         } else {
-            stage=(Stage) skip2.getScene().getWindow();
+            stage=(Stage) backtomain.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
         }
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
+
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -162,6 +182,78 @@ public class ControllerSS {
         }
     }
 
+    @FXML
+    public void dothesplitPSS(ActionEvent e) {
+        if (secretboxpss.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("No secret found");
+            alert.showAndWait();
+        }  else if (sharebox.getText().isEmpty() || !isInt(sharebox.getText())
+            || Integer.parseInt(sharebox.getText()) <= 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Enter a valid number of shares");
+            alert.showAndWait();
+        } else {
+            int numshares = Integer.parseInt(sharebox.getText());
+            if (xortic.isSelected() && !sstic.isSelected()) {
+                PSS.split(secretboxpss.getText(), numshares);
+                outputbox.setText("Success \n" + numshares + " shares have been saved");
+                outputbox.setEditable(false);
+            } else if (!xortic.isSelected() && sstic.isSelected()) {
+                PSS.splitSS(secretboxpss.getText(), numshares);
+                outputbox.setText("Success \n" + numshares + " shares have been saved");
+                outputbox.setEditable(false);
+            } else {
+                outputbox.setText("YOU HAVE FAILED, please untick one checkbox");
+                outputbox.setEditable(false);
+            }
+        }
+
+    }
+
+    @FXML
+    public void dothecombinePSS(ActionEvent e) {
+        if (shareboxnumcombine.getText().isEmpty() || !isInt(shareboxnumcombine.getText())
+                || Integer.parseInt(shareboxnumcombine.getText()) <= 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Enter a valid number of shares");
+            alert.showAndWait();
+        }
+            int numshares = Integer.parseInt(shareboxnumcombine.getText());
+
+        if (xortic.isSelected() && !sstic.isSelected()) {
+            PSS.combine(shareboxcombine.getText(), numshares);
+        } else if (!xortic.isSelected() && sstic.isSelected()) {
+            PSS.combineSS(shareboxcombine.getText(), numshares);
+        } else {
+            return;
+        }
+        File file = new File("RESULT.png");
+        Image image = new Image(file.toURI().toString());
+        outputpssview.setImage(image);
+
+
+    }
+
+    @FXML
+    public void gotofile(ActionEvent e) throws IOException {
+//        FileChooser fileChooser = new FileChooser();
+//        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+//        fileChooser.getExtensionFilters().add(extFilter);
+//        File file = fileChooser.showOpenDialog(Main.stage);
+        String current = new File( "." ).getCanonicalPath();
+        outputbox.setText(current);
+        Desktop.getDesktop().open(new File(current));
+
+    }
+
+
 
     @FXML
     public void loadShares(ActionEvent e) throws FileNotFoundException {
@@ -176,6 +268,42 @@ public class ControllerSS {
         res = readfile(file);
         shareboxcombine.setText(res[0]);
         keyboxcombine.setText(res[1]);
+
+    }
+
+    @FXML
+    public void loadImage(ActionEvent e) throws FileNotFoundException {
+        String[] res;
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showOpenDialog(Main.stage);
+        secretboxpss.setText(file.getAbsolutePath());
+        Image image = new Image(file.toURI().toString());
+        pssview.setImage(image);
+
+    }
+
+    @FXML
+    public void loadImages(ActionEvent e) throws FileNotFoundException {
+        String[] res;
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        List<File> file = fileChooser.showOpenMultipleDialog(Main.stage);
+
+        String urls = "";
+        for (File f :file) {
+            urls = urls.concat(f.getAbsolutePath() + "\n");
+        }
+
+        shareboxcombine.setText(urls);
 
     }
 
@@ -202,6 +330,7 @@ public class ControllerSS {
 
     }
 
+    //load multiple shares
     @FXML
     public void loadShares2(ActionEvent e) throws FileNotFoundException {
         String[] temp = new String[2];
@@ -234,7 +363,6 @@ public class ControllerSS {
             fileChooser.getExtensionFilters().add(extFilter);
 
 
-        //TODO: implement save multiple files
         if (!tik1.isSelected()) {
 
             fileChooser.setInitialFileName("Shares.txt");

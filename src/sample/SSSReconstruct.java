@@ -45,6 +45,39 @@ public class SSSReconstruct {
         return result;
     }
 
+    public static String reconstructVSS(int numshares, String shares, BigInteger prime) {
+
+        //final long start = System.nanoTime();
+        String result;
+
+        ArrayList<Pair<Integer, BigInteger>> newShares = new ArrayList<>();
+        String[] list = shares.split("\\n");
+
+        if (numshares != list.length) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Conflicting number of shares");
+            alert.showAndWait();
+            return "";
+        }
+
+        for (int i = 0; i < list.length; i++) {
+            String nobracket = list[i].replaceAll("[\\[\\](){}]","");
+            String[] s = nobracket.split(",");
+
+            int k = Integer.parseInt(s[0]);
+            //System.out.println("k: " + k);
+            BigInteger v = new BigInteger(String.valueOf(s[1]));
+            newShares.add(new Pair<>(k,v));
+        }
+
+        BigInteger lesecret = reconstruct_shares(newShares,prime);
+        result = String.valueOf(lesecret);
+        //System.out.println("Runtime:" + (System.nanoTime() - start));
+        return result;
+    }
+
 
 
     private static BigInteger reconstruct_shares(List<Pair<Integer, BigInteger>> newShares, BigInteger prime) {

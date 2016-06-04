@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSS">
    <children>
@@ -26,7 +22,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="picturesharing" layoutX="310.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Picture sharing">
+      <Button fx:id="pss" layoutX="310.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Picture sharing">
          <font>
             <Font size="23.0" />
          </font>
