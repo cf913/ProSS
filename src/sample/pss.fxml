@@ -62,8 +62,9 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <CheckBox layoutX="363.0" layoutY="245.0" mnemonicParsing="false" text="XOR" fx:id="xortic" />
-                        <CheckBox fx:id="sstic" layoutX="363.0" layoutY="270.0" mnemonicParsing="false" text="SS" />
+                        <CheckBox layoutX="363.0" layoutY="245.0" mnemonicParsing="false" onAction="#untick" text="XOR" fx:id="xortic" />
+                        <CheckBox fx:id="sstic" layoutX="363.0" layoutY="270.0" mnemonicParsing="false" onAction="#untick" text="SS" />
+                        <TextField fx:id="threshbox" layoutX="18.0" layoutY="261.0" promptText="Threshold (Optional)" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -104,5 +105,6 @@
                 </Tab>
             </tabs>
         </TabPane>
+      <ProgressBar fx:id="bar" layoutX="434.0" layoutY="482.0" prefWidth="200.0" progress="0.0" />
     </children>
 </AnchorPane>

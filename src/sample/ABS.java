@@ -26,11 +26,11 @@ public class ABS {
         BigInteger left;
         BigInteger right;
         int p = 0;
-        m[0] = SSSSplit.newPrime(secret.bitLength()+1);
+        m[0] = SSS.newPrime(secret.bitLength()+1);
         do {
             for (int i = 1; i < m.length; i++) {
                 do {
-                    m[i] = SSSSplit.newPrime(secret.bitLength() + 1);
+                    m[i] = SSS.newPrime(secret.bitLength() + 1);
                 } while (inList(m[i],m, i));
             }
             left = m[0];
@@ -165,13 +165,13 @@ public class ABS {
             temp = temp.multiply(m[i]);
         }
         //System.out.println("bitlength: " + temp.bitLength());
-        alpha = SSSSplit.newPrime(temp.bitLength());
+        alpha = SSS.newPrime(temp.bitLength());
         int i = 0;
 
         //loop runs 3 times in average
         while ((secret.add(m[0].multiply(alpha))).compareTo(temp) >= 0) {
             //alpha should satisfy this condition
-            alpha = SSSSplit.newPrime(alpha.bitLength()-i);
+            alpha = SSS.newPrime(alpha.bitLength()-i);
             i++;
         }
         //System.out.println("i: " + i);

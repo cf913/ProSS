@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by cf913 on 14/05/16.
  */
-public class XORSplit {
+public class XOR {
 
 
     public static String split(String message, int shares) {
@@ -108,7 +108,7 @@ public class XORSplit {
 
         for (int i = 0; i < list.length-1; i++) {
 
-            BigInteger b = SSSSplit.getRandomBigInteger(new BigInteger("225"));
+            BigInteger b = SSS.getRandomBigInteger(new BigInteger("225"));
             list[i] = String.valueOf(b);
 
         }

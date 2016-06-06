@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +78,8 @@ public class ControllerSS {
     @FXML private CheckBox tik1;
     @FXML private CheckBox xortic;
     @FXML private CheckBox sstic;
+
+    @FXML private ProgressBar bar;
 
 
     @FXML
@@ -153,7 +158,7 @@ public class ControllerSS {
                 String[] s;
 
                 if (e.getSource()==splitbutton) {
-                    s = SSSSplit.split(secret, shares, thresh);
+                    s = SSS.split(secret, shares, thresh);
                     secretbox.setText("");
                     outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
                     outputbox.setEditable(false);
@@ -174,7 +179,7 @@ public class ControllerSS {
                 System.out.println("secret " + secret);
                 int shares = Integer.parseInt(sharebox.getText());
                 System.out.println("shares " + shares);
-                String s = XORSplit.split(secret, shares);
+                String s = XOR.split(secret, shares);
                 secretbox.setText("");
                 outputbox.setText("Shares:\n" + s);
                 outputbox.setEditable(false);
@@ -198,22 +203,57 @@ public class ControllerSS {
             alert.setContentText("Enter a valid number of shares");
             alert.showAndWait();
         } else {
+
+
             int numshares = Integer.parseInt(sharebox.getText());
             if (xortic.isSelected() && !sstic.isSelected()) {
+                ///////Testing multithreading for progressbar///////
+//                copyWorker = createWorker(numshares);
+//                bar.setProgress(0);
+//                bar.progressProperty().unbind();
+//                bar.progressProperty().bind(copyWorker.progressProperty());
+//                copyWorker.messageProperty().addListener(new ChangeListener<String>() {
+//                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                    }
+//                });
+//
+//                new Thread(copyWorker).start();
+
+
                 PSS.split(secretboxpss.getText(), numshares);
+
+
+
                 outputbox.setText("Success \n" + numshares + " shares have been saved");
                 outputbox.setEditable(false);
+//           /////////////////////////////////////////////////
             } else if (!xortic.isSelected() && sstic.isSelected()) {
-                PSS.splitSS(secretboxpss.getText(), numshares);
+                PSS.splitSS(secretboxpss.getText(), numshares, Integer.parseInt(threshbox.getText()));
                 outputbox.setText("Success \n" + numshares + " shares have been saved");
                 outputbox.setEditable(false);
             } else {
-                outputbox.setText("YOU HAVE FAILED, please untick one checkbox");
+                outputbox.setText("YOU HAVE FAILED, please select a scheme");
                 outputbox.setEditable(false);
             }
         }
-
     }
+
+    /////////MULTRITHREAD/////////////////////
+//    Task copyWorker;
+//    public Task createWorker(int numshares) {
+//        return new Task() {
+//            @Override
+//            protected Object call() throws Exception {
+//                PSS.split(secretboxpss.getText(), numshares);
+//                updateProgress(100,100);
+//                outputbox.setText("Success \n" + numshares + " shares have been saved");
+//                outputbox.setEditable(false);
+//
+//                return true;
+//            }
+//        };
+//    }
+    /////////MULTRITHREAD/////////////////////
 
     @FXML
     public void dothecombinePSS(ActionEvent e) {
@@ -450,7 +490,7 @@ public class ControllerSS {
                 String s;
                 BigInteger key = new BigInteger(keyboxcombine.getText());
                 if (e.getSource() == combinebutton) {
-                    s = SSSReconstruct.reconstruct(numshares, shares, key);
+                    s = SSS.reconstruct(numshares, shares, key);
                 } else {
                     s = ABS.reconstruct(numshares, shares, key);
                 }
@@ -470,7 +510,7 @@ public class ControllerSS {
                 int numshares = Integer.parseInt(shareboxnumcombine.getText());
                 String shares = shareboxcombine.getText();
 
-                String s = XORSplit.combine(numshares, shares);
+                String s = XOR.combine(numshares, shares);
                 outputboxcombine.setText(s);
                 outputboxcombine.setEditable(false);
 
@@ -511,6 +551,17 @@ public class ControllerSS {
     @FXML
     public void quit(ActionEvent e) {
         exit();
+    }
+
+    @FXML
+    public void untick(ActionEvent e) {
+        if (e.getSource() == xortic) {
+            sstic.setSelected(false);
+            threshbox.setDisable(true);
+        } else {
+            xortic.setSelected(false);
+            threshbox.setDisable(false);
+        }
     }
 
 
