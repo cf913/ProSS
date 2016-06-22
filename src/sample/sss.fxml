@@ -41,12 +41,12 @@
                         <Label layoutX="21.0" layoutY="142.0" text="Number of shares" />
                         <Label layoutX="21.0" layoutY="190.0" text="Threshold" />
                         <Separator layoutX="465.0" orientation="VERTICAL" prefHeight="344.0" prefWidth="33.0" />
-                        <Button fx:id="splitbutton" layoutX="364.0" layoutY="297.0" mnemonicParsing="false" onAction="#dothesplit" prefHeight="31.0" prefWidth="93.0" text="Split">
+                        <Button fx:id="splitbutton" layoutX="363.0" layoutY="311.0" mnemonicParsing="false" onAction="#dothesplit" prefHeight="31.0" prefWidth="93.0" text="Split">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <TextArea fx:id="outputbox" layoutX="505.0" layoutY="31.0" prefHeight="220.0" prefWidth="566.0" promptText="Output" />
+                        <TextArea fx:id="outputbox" editable="false" layoutX="505.0" layoutY="31.0" prefHeight="220.0" prefWidth="566.0" promptText="Output" />
                         <Button fx:id="savebutton" layoutX="976.0" layoutY="297.0" mnemonicParsing="false" onAction="#saveFile" prefHeight="31.0" prefWidth="93.0" text="Save">
                            <font>
                               <Font size="15.0" />
@@ -58,11 +58,16 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="clearbuttonsplit" layoutX="18.0" layoutY="297.0" mnemonicParsing="false" onAction="#clearInput" prefHeight="31.0" prefWidth="93.0" text="Clear">
+                        <Label layoutX="20.0" layoutY="238.0" text="Key" />
+                        <TextField fx:id="primebox" disable="true" layoutX="19.0" layoutY="257.0" onMouseClicked="#useKey" prefHeight="25.0" prefWidth="325.0" promptText="Enter Prime number (Optional)" />
+                        <CheckBox fx:id="useKey" layoutX="353.0" layoutY="261.0" mnemonicParsing="false" onAction="#useKey" text="Use own Key" />
+                        <Button fx:id="clearbuttonsplit" layoutX="19.0" layoutY="309.0" mnemonicParsing="false" onAction="#clearInput" prefHeight="31.0" prefWidth="93.0" text="Clear">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Button>
+                        <Label fx:id="labelprime" layoutX="28.0" layoutY="285.0" prefHeight="15.0" prefWidth="293.0" textFill="#8d8d8d" />
+                        <CheckBox fx:id="comparesecret" disable="true" layoutX="353.0" layoutY="286.0" mnemonicParsing="false" onAction="#showSecret" text="Show secret" />
                      </children>
                   </AnchorPane>
             </content>
@@ -83,7 +88,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <TextArea fx:id="outputboxcombine" layoutX="505.0" layoutY="31.0" prefHeight="220.0" prefWidth="566.0" promptText="Secret" />
+                        <TextArea fx:id="outputboxcombine" editable="false" layoutX="505.0" layoutY="31.0" prefHeight="220.0" prefWidth="566.0" promptText="Secret" />
                         <Button fx:id="savebutton1" layoutX="976.0" layoutY="297.0" mnemonicParsing="false" onAction="#saveFile" prefHeight="31.0" prefWidth="93.0" text="Save">
                            <font>
                               <Font size="15.0" />

@@ -28,17 +28,25 @@ public class SSS {
      * @return a list [shares, key, t] where shares is the new set of shares,
      *          key is the prime generated to compute the modulo, and t the threshold
      ********************************************************************************/
-    public static String[] split(String message, int n, int t) {
+    public static String[] split(String message, int n, int t, String key) {
 
         final long start = System.nanoTime();
         String msg = message;
         BigInteger secret    = new BigInteger(msg.getBytes());
+        String[] result = new String[3];
         /**
          * Prime > Secret
          */
-        BigInteger prime = newPrime(secret.bitLength());
-        if ((secret.compareTo(prime)>= 0)) {
-            prime = newPrime((secret.multiply(BigInteger.valueOf(2))).bitLength());
+
+        System.out.println("The key: " + key);
+        BigInteger prime;
+        if (!key.isEmpty()) {
+            prime = new BigInteger(key);
+        } else {
+            prime = newPrime(secret.bitLength());
+            if ((secret.compareTo(prime) >= 0)) {
+                prime = newPrime((secret.multiply(BigInteger.valueOf(2))).bitLength());
+            }
         }
 
         int degree = t - 1;
@@ -48,7 +56,7 @@ public class SSS {
         String newShares;
         newShares = split_shares(coefs, n, prime);
 
-        String[] result = new String[3];
+
         result[0] = newShares;
         result[1] = prime.toString();
         result[2] = String.valueOf(t);
