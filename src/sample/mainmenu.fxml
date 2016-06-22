@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSS">
    <children>
-      <Label alignment="CENTER" layoutX="207.0" layoutY="25.0" prefHeight="62.0" prefWidth="167.0" text="ProceSS" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="207.0" layoutY="25.0" prefHeight="62.0" prefWidth="167.0" text="ProSS" textAlignment="CENTER">
          <font>
             <Font size="29.0" />
          </font>
@@ -17,7 +17,7 @@
             <Font size="23.0" />
          </font>
       </Button>
-      <Button layoutX="58.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="Simple&#10;XOR" textAlignment="CENTER" fx:id="xor">
+      <Button layoutX="58.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="(n,n)&#10;XOR" textAlignment="CENTER" fx:id="xor">
          <font>
             <Font size="20.0" />
          </font>
@@ -42,5 +42,6 @@
             <Font size="9.0" />
          </font>
       </Label>
+      <Button fx:id="nextbutton" layoutX="275.0" layoutY="369.0" mnemonicParsing="false" onAction="#goTo" text="Next" />
    </children>
 </AnchorPane>

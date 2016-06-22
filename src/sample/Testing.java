@@ -16,7 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * Progress bar testing
+ */
 public class Testing extends Application {
+
     Task copyWorker;
     public static void main(String[] args) {
         Application.launch(args);

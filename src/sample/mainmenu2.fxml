@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSS">
+    <children>
+        <Label alignment="CENTER" layoutX="207.0" layoutY="25.0" prefHeight="62.0" prefWidth="167.0" text="ProSS" textAlignment="CENTER">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Label>
+        <Button fx:id="new1" layoutX="58.0" layoutY="158.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="New Threshold Scheme">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button fx:id="new3" layoutX="58.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="New" textAlignment="CENTER">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="new4" layoutX="310.0" layoutY="257.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="New">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Button>
+        <Button fx:id="new2" layoutX="310.0" layoutY="158.0" mnemonicParsing="false" onAction="#goTo" prefHeight="83.0" prefWidth="226.0" text="New">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" layoutX="208.0" layoutY="65.0" prefHeight="62.0" prefWidth="167.0" text="Secret Sharing" textAlignment="CENTER">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="474.0" layoutY="368.0" prefHeight="62.0" prefWidth="167.0" text="v1.0 2016" textAlignment="CENTER">
+            <font>
+                <Font size="9.0" />
+            </font>
+        </Label>
+      <Button fx:id="prevbutton" layoutX="273.0" layoutY="368.0" mnemonicParsing="false" onAction="#goTo" text="Prev" />
+    </children>
+</AnchorPane>

@@ -1,7 +1,9 @@
 package sample;
 
 /**
- * Created by cf913 on 11/05/16.
+ * Created by cf913
+ *
+ * Class used to handle tuples in SSS.java in ABS.java
  */
 public class Pair<L,R> {
 

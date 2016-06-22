@@ -1,8 +1,11 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
+/**
+ * Created by cf913
+ */
+//import javafx.beans.value.ChangeListener;
+//import javafx.beans.value.ObservableValue;
+//import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +17,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import picture.Picture;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +35,7 @@ import static javafx.application.Platform.exit;
 public class ControllerSS {
 
 
-
+    // Button
     @FXML private Button sss;
     @FXML private Button xor;
     @FXML private Button ab;
@@ -45,7 +45,8 @@ public class ControllerSS {
     @FXML private Button splitbuttonab;
     @FXML private Button splitbuttonpss;
     @FXML private Button backtomain;
-    @FXML private Button gotofilebutton;
+    @FXML private Button nextbutton;
+    @FXML private Button prevbutton;
     @FXML private Button copybuttonab;
     @FXML private Button loadsharesbutton;
     @FXML private Button loadmultsharesbutton;
@@ -56,53 +57,79 @@ public class ControllerSS {
     @FXML private Button clearbuttoncombine;
     @FXML private Button clearbuttonsplitxor;
     @FXML private Button clearbuttoncombinexor;
+    @FXML private Button new1;
 
+    // TextArea
     @FXML private TextArea secretbox;
     @FXML private TextArea outputbox;
+    @FXML private TextArea shareboxcombine;
+    @FXML private TextArea outputboxcombine;
 
+    // ImageView
     @FXML private ImageView pssview;
     @FXML private ImageView outputpssview;
-    @FXML private ImageView plop;
 
-
+    // TextField
     @FXML private TextField sharebox;
     @FXML private TextField secretboxpss;
     @FXML private TextField threshbox;
-
     @FXML private TextField shareboxnumcombine;
-    @FXML private TextArea shareboxcombine;
     @FXML private TextField keyboxcombine;
-    @FXML private TextArea outputboxcombine;
 
-
+    // CheckBox
     @FXML private CheckBox tik1;
     @FXML private CheckBox xortic;
     @FXML private CheckBox sstic;
 
+    //ProgressBar
     @FXML private ProgressBar bar;
 
 
+    /***********************************************************************
+     * Controls the behavior of scheme selection in the Main Menu window
+     * Opens the window corresponding to the selected scheme
+     * @param event
+     *          button in the Main Menu window
+     * @throws IOException
+     ***********************************************************************/
     @FXML
     public void goTo(ActionEvent event) throws IOException{
         Stage stage;
         Parent root;
+
+        // selection
         if(event.getSource()==sss){
-            stage=(Stage) sss.getScene().getWindow();
+            stage= (Stage) sss.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("sss.fxml"));
         } else if(event.getSource()==xor){
-            stage=(Stage) xor.getScene().getWindow();
+            stage= (Stage) xor.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("xor.fxml"));
         } else if(event.getSource()==ab){
-            stage=(Stage) ab.getScene().getWindow();
+            stage= (Stage) ab.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("ab.fxml"));
-        } else if(event.getSource()==pss){
-            stage=(Stage) pss.getScene().getWindow();
+        } else if(event.getSource()==pss) {
+            stage= (Stage) pss.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("pss.fxml"));
+        } else if(event.getSource()==prevbutton) {
+            stage= (Stage) prevbutton.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
+        } else if(event.getSource()==nextbutton) {
+            stage= (Stage) nextbutton.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("mainmenu2.fxml"));
+        } else if(event.getSource()==new1) {
+            stage= (Stage) new1.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("new1.fxml"));
+            ////TO ADD newscheme///////////////
+//        } else if(event.getSource()==newscheme) {
+//            stage= (Stage) newscheme.getScene().getWindow();
+//            root = FXMLLoader.load(getClass().getResource("newscheme.fxml"));
 
         } else {
             stage=(Stage) backtomain.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
         }
+
+
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -111,23 +138,31 @@ public class ControllerSS {
 
     }
 
+
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////SPLIT/////////////////////////////////////////
+
+    /*****************************************************************
+     * Controls result of pressing SPLIT button for SSS, ABS and XOR
+     * @param e
+     *          split button
+     *****************************************************************/
     @FXML
     public void dothesplit(ActionEvent e) {
 
-
-        ////////////////////////////////////////////////////////////
-        //invalid input handling
+        //invalid secret handling
         if (secretbox.getText().isEmpty()) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
             alert.setContentText("No secret found");
             alert.showAndWait();
 
+        //invalid number of shares handling
         } else if (sharebox.getText().isEmpty() || !isInt(sharebox.getText())
                 || Integer.parseInt(sharebox.getText()) <= 0) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
@@ -137,18 +172,21 @@ public class ControllerSS {
 
         } else {
             ////////////////////////////////////////////////////////////
-            ////////////////SS//////////////////////////////////////////
+            ////////////////SS AND ABS//////////////////////////////////
 
             if (e.getSource()==splitbutton || e.getSource()==splitbuttonab) {
 
+                //invalid threshold value check
                 if (threshbox.getText().isEmpty() || !isInt(threshbox.getText())
                         || Integer.parseInt(threshbox.getText()) <= 0
                         || Integer.parseInt(threshbox.getText()) > Integer.parseInt(sharebox.getText())) {
+
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Error");
                     alert.setContentText("Enter a valid threshold =< number of shares");
                     alert.showAndWait();
+
                 }
 
                 String secret = secretbox.getText();
@@ -156,17 +194,19 @@ public class ControllerSS {
                 int thresh = Integer.parseInt(threshbox.getText());
 
                 String[] s;
-
+                //scheme selection (SSS or ABS)
                 if (e.getSource()==splitbutton) {
+
                     s = SSS.split(secret, shares, thresh);
-                    secretbox.setText("");
                     outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[2] + "\n\nKey:\n" + s[1]);
                     outputbox.setEditable(false);
+
                 } else {
+
                     s = ABS.split(secret, shares, thresh);
-                    secretbox.setText("");
                     outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[1]+ "\n\nKey:\n" + s[2]);
                     outputbox.setEditable(false);
+
                 }
 
 
@@ -180,7 +220,6 @@ public class ControllerSS {
                 int shares = Integer.parseInt(sharebox.getText());
                 System.out.println("shares " + shares);
                 String s = XOR.split(secret, shares);
-                secretbox.setText("");
                 outputbox.setText("Shares:\n" + s);
                 outputbox.setEditable(false);
             }
@@ -188,23 +227,86 @@ public class ControllerSS {
     }
 
     @FXML
+    public void dothesplitnew1(ActionEvent e) {
+        //invalid secret handling
+//        if (secretbox.getText().isEmpty()) {
+//
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Error");
+//            alert.setContentText("No secret found");
+//            alert.showAndWait();
+//
+//            //invalid number of shares handling
+//        } else if (sharebox.getText().isEmpty() || !isInt(sharebox.getText())
+//                || Integer.parseInt(sharebox.getText()) <= 0) {
+//
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Error");
+//            alert.setContentText("Enter a valid number of shares");
+//            alert.showAndWait();
+//
+//
+//        } else if (threshbox.getText().isEmpty() || !isInt(threshbox.getText())
+//                        || Integer.parseInt(threshbox.getText()) <= 0
+//                        || Integer.parseInt(threshbox.getText()) > Integer.parseInt(sharebox.getText())) {
+//
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Error");
+//                    alert.setHeaderText("Error");
+//                    alert.setContentText("Enter a valid threshold =< number of shares");
+//                    alert.showAndWait();
+//
+//        } else {
+
+//            String secret = secretbox.getText();
+//            int shares = Integer.parseInt(sharebox.getText());
+//            int thresh = Integer.parseInt(threshbox.getText());
+//
+//            String[] s;
+//            s = <yournewclass>.split(secret, shares, thresh);
+//            outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[1]+ "\n\nKey:\n" + s[2]);
+//            outputbox.setEditable(false);
+
+            // uncomment above and remove below once new scheme is implemented
+            outputbox.setText("Create new Splitting method and link it to\n" +
+                    "this Split button in ControllerSS.dothesplitnew1():\n" +
+                    "Call <yournewclass>.split(message, n, t)");
+            outputbox.setEditable(false);
+        //}
+    }
+
+    /*******************************************************
+     * Controls result of pressing SPLIT button for PSS
+     * @param e
+     *          split button
+     *******************************************************/
+    @FXML
     public void dothesplitPSS(ActionEvent e) {
+
+        //invalid secret handling
         if (secretboxpss.getText().isEmpty()) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
             alert.setContentText("No secret found");
             alert.showAndWait();
+
+        //invalid number of shares handling
         }  else if (sharebox.getText().isEmpty() || !isInt(sharebox.getText())
-            || Integer.parseInt(sharebox.getText()) <= 0) {
+                || Integer.parseInt(sharebox.getText()) <= 0) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
             alert.setContentText("Enter a valid number of shares");
             alert.showAndWait();
+
         } else {
 
-
+            // checkbox verification and scheme selection
             int numshares = Integer.parseInt(sharebox.getText());
             if (xortic.isSelected() && !sstic.isSelected()) {
                 ///////Testing multithreading for progressbar///////
@@ -218,22 +320,21 @@ public class ControllerSS {
 //                });
 //
 //                new Thread(copyWorker).start();
-
-
-                PSS.split(secretboxpss.getText(), numshares);
-
-
-
+                PSS.splitXOR(secretboxpss.getText(), numshares);
                 outputbox.setText("Success \n" + numshares + " shares have been saved");
                 outputbox.setEditable(false);
 //           /////////////////////////////////////////////////
             } else if (!xortic.isSelected() && sstic.isSelected()) {
+
                 PSS.splitSS(secretboxpss.getText(), numshares, Integer.parseInt(threshbox.getText()));
                 outputbox.setText("Success \n" + numshares + " shares have been saved");
                 outputbox.setEditable(false);
+
             } else {
+
                 outputbox.setText("YOU HAVE FAILED, please select a scheme");
                 outputbox.setEditable(false);
+
             }
         }
     }
@@ -255,8 +356,15 @@ public class ControllerSS {
 //    }
     /////////MULTRITHREAD/////////////////////
 
+    /**********************************************************
+     * Controls result of clicking the Combine button for PSS
+     * @param e
+     *          PSS combine button
+     **********************************************************/
     @FXML
     public void dothecombinePSS(ActionEvent e) {
+
+        //check if number of shares is valid
         if (shareboxnumcombine.getText().isEmpty() || !isInt(shareboxnumcombine.getText())
                 || Integer.parseInt(shareboxnumcombine.getText()) <= 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -265,28 +373,171 @@ public class ControllerSS {
             alert.setContentText("Enter a valid number of shares");
             alert.showAndWait();
         }
-            int numshares = Integer.parseInt(shareboxnumcombine.getText());
+        int numshares = Integer.parseInt(shareboxnumcombine.getText());
 
+        // checkbox verification and scheme selection
         if (xortic.isSelected() && !sstic.isSelected()) {
-            PSS.combine(shareboxcombine.getText(), numshares);
+            PSS.combineXOR(shareboxcombine.getText(), numshares);
         } else if (!xortic.isSelected() && sstic.isSelected()) {
             PSS.combineSS(shareboxcombine.getText(), numshares);
         } else {
             return;
         }
+
         File file = new File("RESULT.png");
         Image image = new Image(file.toURI().toString());
         outputpssview.setImage(image);
 
-
     }
 
+
+    ///////////////////////////////////////////////////////////////////////
+    /////////////////////////RECONSTRUCTION////////////////////////////////
+
+    @FXML
+    public void dothecombinenew1(ActionEvent e) {
+//        if (shareboxnumcombine.getText().isEmpty() || !isInt(shareboxnumcombine.getText())) {
+//
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Error");
+//            alert.setContentText("Share number not valid");
+//            alert.showAndWait();
+//
+//        } else if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
+//
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setHeaderText("Error");
+//                alert.setContentText("Key not valid");
+//                alert.showAndWait();
+//                return;
+//
+//                //check validity of shares
+//        } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
+//
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setHeaderText("Error");
+//                alert.setContentText("Shares are not valid");
+//                alert.showAndWait();
+//
+//        } else {
+
+//            int numshares = Integer.parseInt(shareboxnumcombine.getText());
+//            String shares = shareboxcombine.getText();
+//            String s;
+//            BigInteger key = new BigInteger(keyboxcombine.getText());
+//            s = <yournewclass>.reconstruct(numshares, shares, key);
+//            outputboxcombine.setText(s);
+//            outputboxcombine.setEditable(false);
+
+
+            // uncomment above and remove below once new scheme is implemented
+            outputboxcombine.setText("Create new Reconstruction method and link it to\n" +
+                    "this combine button in ControllerSS.dothecombinenew1():\n" +
+                    "Call <yournewclass>.recontruct(message, n, t)");
+            outputboxcombine.setEditable(false);
+        //}
+    }
+
+    /**
+     * Controls behavior of the Combine button for SSS, ABS and XOR
+     * @param e
+     *
+     */
+    @FXML
+    public void dothecombine(ActionEvent e) {
+
+        //check validity of number of shares
+        if (shareboxnumcombine.getText().isEmpty() || !isInt(shareboxnumcombine.getText())) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Share number not valid");
+            alert.showAndWait();
+
+        //SSS and ABS
+        } else if (e.getSource() == combinebutton || e.getSource() == combinebuttonab) {
+
+            //check validity of key
+            if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Key not valid");
+                alert.showAndWait();
+                return;
+
+                //check validity of shares
+            } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Shares are not valid");
+                alert.showAndWait();
+
+            } else {
+
+                int numshares = Integer.parseInt(shareboxnumcombine.getText());
+                String shares = shareboxcombine.getText();
+
+                String s;
+                BigInteger key = new BigInteger(keyboxcombine.getText());
+
+                //scheme selection
+                if (e.getSource() == combinebutton) {
+                    s = SSS.reconstruct(numshares, shares, key);
+                } else {
+                    s = ABS.reconstruct(numshares, shares, key);
+                }
+
+                outputboxcombine.setText(s);
+                outputboxcombine.setEditable(false);
+            }
+
+        //XOR
+        } else if (e.getSource() == combinebuttonxor) {
+
+            if (shareboxcombine.getText().isEmpty() || !isGoodShareXor(shareboxcombine.getText())) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Shares are not valid!!!!!");
+                alert.showAndWait();
+
+            } else {
+
+                int numshares = Integer.parseInt(shareboxnumcombine.getText());
+                String shares = shareboxcombine.getText();
+
+                String s = XOR.combine(numshares, shares);
+                outputboxcombine.setText(s);
+                outputboxcombine.setEditable(false);
+
+            }
+        }
+    }
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////
+    /////////////////////////UTILS//////////////////////////////////////////
+
+    /***********************************************
+     * Opens directory where the images are saved
+     * @param e
+     *          Go To File button
+     * @throws IOException
+     ***********************************************/
     @FXML
     public void gotofile(ActionEvent e) throws IOException {
-//        FileChooser fileChooser = new FileChooser();
-//        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-//        fileChooser.getExtensionFilters().add(extFilter);
-//        File file = fileChooser.showOpenDialog(Main.stage);
+
         String current = new File( "." ).getCanonicalPath();
         outputbox.setText(current);
         Desktop.getDesktop().open(new File(current));
@@ -294,9 +545,15 @@ public class ControllerSS {
     }
 
 
-
+    /**************************************************************
+     * Opens a Dialog to load a single file containing all shares
+     * @param e
+     *          Load File button
+     * @throws FileNotFoundException
+     **************************************************************/
     @FXML
     public void loadShares(ActionEvent e) throws FileNotFoundException {
+
         String[] res;
         FileChooser fileChooser = new FileChooser();
 
@@ -311,9 +568,14 @@ public class ControllerSS {
 
     }
 
+    /******************************************************************
+     * Opens a Dialog to load a single image (.PNG)
+     * @param e
+     * @throws FileNotFoundException
+     ******************************************************************/
     @FXML
     public void loadImage(ActionEvent e) throws FileNotFoundException {
-        String[] res;
+
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter
@@ -327,9 +589,14 @@ public class ControllerSS {
 
     }
 
+    /***********************************************
+     * Opens a Dialog to load multiple images(.PNG)
+     * @param e
+     * @throws FileNotFoundException
+     ***********************************************/
     @FXML
     public void loadImages(ActionEvent e) throws FileNotFoundException {
-        String[] res;
+
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter
@@ -347,14 +614,23 @@ public class ControllerSS {
 
     }
 
+    /*****************************************************
+     * Reads a file and extract the Shares and the Key
+     * @param file
+     * @return list [Shares, key]
+     * @throws FileNotFoundException
+     *****************************************************/
     private String[] readfile(File file) throws FileNotFoundException {
+
         String[] res = new String[2];
         Scanner s = new Scanner(file).useDelimiter("\\n");
         String shares = "";
         String token;
         String key = "";
+
         while (s.hasNext()) {
             token = s.next();
+
             if (isGoodShare(token)) { // check if next token is an int
                 shares = shares.concat(token + "\n");
             }
@@ -363,6 +639,7 @@ public class ControllerSS {
                 key = token;
             }
         }
+
         shareboxcombine.setText(shares);
         res[0] = shares;
         res[1] = key;
@@ -370,13 +647,20 @@ public class ControllerSS {
 
     }
 
-    //load multiple shares
+    /**************************************************************
+     * Opens a Dialog to load multiple files containing all shares
+     * @param e
+     *          Load File button
+     * @throws FileNotFoundException
+     **************************************************************/
     @FXML
     public void loadShares2(ActionEvent e) throws FileNotFoundException {
+
         String[] temp = new String[2];
         String[] res = new String[2];
         res[0] = "";
         FileChooser fileChooser = new FileChooser();
+
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -384,25 +668,38 @@ public class ControllerSS {
         List<File> list = fileChooser.showOpenMultipleDialog(Main.stage);
 
         for (File file : list) {
+
             temp = readfile(file);
             res[0] = res[0].concat(temp[0]);
+
         }
+
         res[1] = temp[1];
         shareboxcombine.setText(res[0]);
         keyboxcombine.setText(res[1]);
 
     }
 
+    /*******************************************************
+     * Save a file containing shares, threshold and key
+     * Save multiple file with one share and key each if
+     * the CheckBox "One Share Per File" is selected.
+     * Shares.txt
+     * or
+     * Share0.txt, Share1.txt, ..., Sharen.txt
+     * @param e
+     *******************************************************/
     @FXML
     public void saveFile(ActionEvent e) {
 
-            FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
 
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-            fileChooser.getExtensionFilters().add(extFilter);
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
 
 
+        //one file
         if (!tik1.isSelected()) {
 
             fileChooser.setInitialFileName("Shares.txt");
@@ -411,6 +708,8 @@ public class ControllerSS {
             if (file != null) {
                 SaveFile(outputbox.getText(), file);
             }
+
+        //multiple files
         } else {
 
             String out = outputbox.getText();
@@ -424,13 +723,13 @@ public class ControllerSS {
 
             fileChooser.setInitialFileName("Share0.txt");
             File file = fileChooser.showSaveDialog(Main.stage);
+
             if (file != null) {
                 SaveFile("Share 0:\n" + list[1] + "\nKey;\n" + key , file);
             }
 
             for (int i = 1; i < share; i++) {
                 SaveFile("Share "+i+":\n" + list[i+1] + "\nKey; \n" + key , new File(file.getParent() + "/Share" + i + ".txt"));
-
             }
 
 
@@ -451,103 +750,51 @@ public class ControllerSS {
         }
     }
 
-
-    ///////////////////////////////////////////////////////////////////////
-    /////////////////////////RECONSTRUCTION////////////////////////////////
-
-    @FXML
-    public void dothecombine(ActionEvent e) {
-
-        if (shareboxnumcombine.getText().isEmpty() || !isInt(shareboxnumcombine.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Share number not valid");
-            alert.showAndWait();
-
-        } else if (e.getSource() == combinebutton || e.getSource() == combinebuttonab) {
-
-
-            if (keyboxcombine.getText().isEmpty() || !isInt(keyboxcombine.getText())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error");
-                alert.setContentText("Key not valid");
-                alert.showAndWait();
-                return;
-            } else if (shareboxcombine.getText().isEmpty() || !isGoodShare(shareboxcombine.getText())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error");
-                alert.setContentText("Shares are not valid");
-                alert.showAndWait();
-            } else {
-
-                int numshares = Integer.parseInt(shareboxnumcombine.getText());
-                String shares = shareboxcombine.getText();
-
-
-                String s;
-                BigInteger key = new BigInteger(keyboxcombine.getText());
-                if (e.getSource() == combinebutton) {
-                    s = SSS.reconstruct(numshares, shares, key);
-                } else {
-                    s = ABS.reconstruct(numshares, shares, key);
-                }
-                outputboxcombine.setText(s);
-                outputboxcombine.setEditable(false);
-            }
-
-
-        } else if (e.getSource() == combinebuttonxor) {
-            if (shareboxcombine.getText().isEmpty() || !isGoodShareXor(shareboxcombine.getText())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error");
-                alert.setContentText("Shares are not valid!!!!!");
-                alert.showAndWait();
-            } else {
-                int numshares = Integer.parseInt(shareboxnumcombine.getText());
-                String shares = shareboxcombine.getText();
-
-                String s = XOR.combine(numshares, shares);
-                outputboxcombine.setText(s);
-                outputboxcombine.setEditable(false);
-
-            }
-        }
-    }
-
-
-
-
-    ///////////////////////////////////////////////////////////////////////
-    /////////////////////////UTILS//////////////////////////////////////////
+    /********************************************
+     * Clears the input boxes in each window
+     * @param e
+     ********************************************/
     @FXML
     public void clearInput(ActionEvent e) {
 
+        //SSS and ABS split
         if (e.getSource() == clearbuttonsplit) {
+
             secretbox.setText("");
             sharebox.setText("");
             threshbox.setText("");
-        }
 
+        }
+        //SSS and ABS combine
         if (e.getSource() == clearbuttoncombine) {
+
             shareboxcombine.setText("");
             keyboxcombine.setText("");
             shareboxnumcombine.setText("");
-        }
-        if (e.getSource() == clearbuttonsplitxor) {
-            secretbox.setText("");
-            sharebox.setText("");
+
         }
 
+        //XOR split
+        if (e.getSource() == clearbuttonsplitxor) {
+
+            secretbox.setText("");
+            sharebox.setText("");
+
+        }
+
+        //XOR ocmbine
         if (e.getSource() == clearbuttoncombinexor) {
+
             shareboxcombine.setText("");
             shareboxnumcombine.setText("");
+
         }
     }
 
+    /*********************
+     * Exits the program
+     * @param e
+     *********************/
     @FXML
     public void quit(ActionEvent e) {
         exit();
@@ -555,16 +802,25 @@ public class ControllerSS {
 
     @FXML
     public void untick(ActionEvent e) {
+
         if (e.getSource() == xortic) {
+
             sstic.setSelected(false);
             threshbox.setDisable(true);
+
         } else {
+
             xortic.setSelected(false);
             threshbox.setDisable(false);
+
         }
     }
 
 
+    /*******************************************************************************************
+     * Copies content of Splitting outputbox into each corresponding Recontruction input boxes
+     * @param e
+     *******************************************************************************************/
     //FOR TESTING PURPOSES
     @FXML
     public void copyIt(ActionEvent e) {
@@ -576,49 +832,73 @@ public class ControllerSS {
         String shares = "";
 
         String thresh = list[share + 3];
+
         for (int i = 0; i < Integer.parseInt(thresh); i++) {
+
             shares = shares.concat(list[i + 1] + "\n");
+
         }
 
         String key = list[share + 6];
         keyboxcombine.setText(key);
-
-
         shareboxnumcombine.setText(thresh);
         shareboxcombine.setText(shares);
     }
 
+    /********************************************************************
+     * Checks if input is a valid number, contains only numbers 0-9
+     * @param text
+     *          input text
+     * @return
+     ********************************************************************/
     private boolean isInt(String text)
     {
         return text.matches("[0-9]*");
     }
 
-    private boolean isGoodShare(String text)
-    {
+    /*******************************************
+     * Check the validity of shares
+     * @param text
+     *          String representation of shares
+     * @return
+     *******************************************/
+    private boolean isGoodShare(String text) {
+
         boolean b = true;
         String[] split = text.split("\\n");
+
         for (String s : split) {
+
             if (!s.matches("(\\((\\d+)\\,(\\d+)\\))")) {
+
                 System.out.println("Share is not valid");
                 System.out.println(s);
                 b = false;
+
             }
+
         }
         return b;
     }
 
-    private boolean isGoodShareXor(String text)
-    {
+    /************************************************
+     * Checks if XOR shares are valid
+     * @param text
+     *          String representation of XOR shares
+     * @return
+     ************************************************/
+    private boolean isGoodShareXor(String text) {
+
         boolean b = true;
         String[] split = text.split("\\n");
+
         for (String s : split) {
             if (!isInt(s)) {
                 b = false;
             }
         }
+
         return b;
     }
-
-
 
 }
