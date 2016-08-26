@@ -226,33 +226,33 @@ public class ControllerSS {
     @FXML
     public void dothesplitnew1(ActionEvent e) {
         //invalid secret handling
-//        if (!validSecret()) {
-//            alertError("secret");
-//
-//            //invalid number of shares handling
-//        } else if (!validNumberOfShares()) {
-//            alertError("numberofshares");
-//
-//        } else if (!validThreshold()) {
-//                    alertError("threshold");
-//
-//        } else {
+        if (!validSecret()) {
+            alertError("secret");
 
-//            String secret = secretbox.getText();
-//            int shares = Integer.parseInt(sharebox.getText());
-//            int thresh = Integer.parseInt(threshbox.getText());
-//
-//            String[] s;
-//            s = <yournewclass>.split(secret, shares, thresh);
-//            outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[1]+ "\n\nKey:\n" + s[2]);
-//            outputbox.setEditable(false);
+            //invalid number of shares handling
+        } else if (!validNumberOfShares()) {
+            alertError("numberofshares");
+
+        } else if (!validThreshold()) {
+                    alertError("threshold");
+
+        } else {
+
+            int secret = Integer.parseInt(secretbox.getText());
+            int shares = Integer.parseInt(sharebox.getText());
+            int thresh = Integer.parseInt(threshbox.getText());
+
+            String[] s;
+            s = Blakley.split(secret, shares, thresh);
+            outputbox.setText("Shares:\n" + s[0] + "\nThreshold:\n" + s[1]+ "\n\nKey:\n" + s[2]);
+            outputbox.setEditable(false);
 
             // uncomment above and remove below once new scheme is implemented
-            outputbox.setText("Create new Splitting method and link it to\n" +
-                    "this Split button in ControllerSS.dothesplitnew1():\n" +
-                    "Call <yournewclass>.split(message, n, t)");
-            outputbox.setEditable(false);
-        //}
+//            outputbox.setText("Create new Splitting method and link it to\n" +
+//                    "this Split button in ControllerSS.dothesplitnew1():\n" +
+//                    "Call <yournewclass>.split(message, n, t)");
+//            outputbox.setEditable(false);
+        }
     }
 
     /*******************************************************
@@ -335,39 +335,40 @@ public class ControllerSS {
 
     @FXML
     public void dothecombinenew1(ActionEvent e) {
-//        if (!validNumberOfShares()) {
-//
-//            alertError("numberofshares");
-//            return;
-//
-//        } else if (!validKey()) {
-//
-//            alertError("key");
-//            return;
-//
-//                //check validity of shares
+        if (!validNumberOfShares()) {
+
+            alertError("numberofshares");
+            return;
+
+        } else if (!validKey()) {
+
+            alertError("key");
+            return;
+
+                //check validity of shares
 //        } else if (!validShares()) {
 //
 //            alertError("shares");
 //            return;
-//
-//        } else {
 
-//            int numshares = Integer.parseInt(shareboxnumcombine.getText());
-//            String shares = shareboxcombine.getText();
-//            String s;
-//            BigInteger key = new BigInteger(keyboxcombine.getText());
-//            s = <yournewclass>.reconstruct(numshares, shares, key);
-//            outputboxcombine.setText(s);
-//            outputboxcombine.setEditable(false);
+        } else {
+
+            int numshares = Integer.parseInt(shareboxnumcombine.getText());
+            String shares = shareboxcombine.getText();
+            String s;
+            int key = Integer.parseInt(keyboxcombine.getText());
+            //BigInteger key = new BigInteger(keyboxcombine.getText());
+            s = Blakley.reconstruct(shares, numshares, numshares);
+            outputboxcombine.setText(s);
+            outputboxcombine.setEditable(false);
 
 
             // uncomment above and remove below once new scheme is implemented
-            outputboxcombine.setText("Create new Reconstruction method and link it to\n" +
-                    "this combine button in ControllerSS.dothecombinenew1():\n" +
-                    "Call <yournewclass>.recontruct(message, n, t)");
-            outputboxcombine.setEditable(false);
-        //}
+//            outputboxcombine.setText("Create new Reconstruction method and link it to\n" +
+//                    "this combine button in ControllerSS.dothecombinenew1():\n" +
+//                    "Call <yournewclass>.recontruct(message, n, t)");
+//            outputboxcombine.setEditable(false);
+        }
     }
 
     /****************************************************************
@@ -445,6 +446,10 @@ public class ControllerSS {
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////UTILS//////////////////////////////////////////
 
+    /***********************************************************
+     * Set of methods that check the validity of inputted values
+     * secret, number of shares, threshold, key and more
+     ***********************************************************/
     private boolean validSecret() {
         return !secretbox.getText().isEmpty();
     }
@@ -698,20 +703,23 @@ public class ControllerSS {
             int share = Integer.parseInt(sharebox.getText());
 
             String[] list = out.split("\\n");
-            String shares = "";
 
             String key = list[share + 6];
 
 
             fileChooser.setInitialFileName("Share0.txt");
             File file = fileChooser.showSaveDialog(Main.stage);
+            System.out.println(file.getName());
 
             if (file != null) {
                 SaveFile("Share 0:\n" + list[1] + "\nKey;\n" + key , file);
             }
 
             for (int i = 1; i < share; i++) {
-                SaveFile("Share "+i+":\n" + list[i+1] + "\nKey; \n" + key , new File(file.getParent() + "/Share" + i + ".txt"));
+                String filename = file.getName();
+                filename = filename.substring(0, filename.length() - 4);
+                SaveFile("Share "+i+":\n" + list[i+1] + "\nKey; \n" + key ,
+                        new File(file.getParent() + "/" + filename + i + ".txt"));
             }
 
 
@@ -719,7 +727,13 @@ public class ControllerSS {
 
     }
 
-
+    /*******************************************
+     * Used in saveFile. Save content to a file
+     * @param content
+     *          String to save
+     * @param file
+     *          Path to file
+     *******************************************/
     private void SaveFile(String content, File file) {
         try {
             FileWriter fileWriter = null;
@@ -732,10 +746,10 @@ public class ControllerSS {
         }
     }
 
-    /********************************************
-     * Clears the input boxes in each window
+    /**************************************************************
+     * Clears the input boxes in each Secret sharing scheme window
      * @param e
-     ********************************************/
+     **************************************************************/
     @FXML
     public void clearInput(ActionEvent e) {
 
@@ -783,18 +797,31 @@ public class ControllerSS {
     }
 
 
+    /**********************************************************
+     * displays a preview of of the secret value in SSS
+     * when the "show secret" checkbox is ticked
+     * Used to compare the size fo the secret to a given key
+     **********************************************************/
     @FXML
     public void showSecret() {
+
         if (!comparesecret.isSelected()) {
             labelprime.setText("");
+
         } else {
             labelprime.setText(String.valueOf(new BigInteger(secretbox.getText().getBytes())));
         }
 
     }
+
+    /*************************************************************
+     * Controls the behavior of the "Use own Key" checkbox in SSS.
+     *************************************************************/
     @FXML
     public void useKey() {
+
         if (!useKey.isSelected()) {
+
             primebox.setDisable(true);
             comparesecret.setDisable(true);
 
@@ -804,6 +831,10 @@ public class ControllerSS {
         }
     }
 
+    /***********************************
+     * Scheme selection control in PSS
+     *
+     ***********************************/
     @FXML
     public void untick(ActionEvent e) {
 
@@ -823,6 +854,7 @@ public class ControllerSS {
 
     /*******************************************************************************************
      * Copies content of Splitting outputbox into each corresponding Recontruction input boxes
+     * for (t,n) threshold schemes
      * @param e
      *******************************************************************************************/
     //FOR TESTING PURPOSES
@@ -838,15 +870,34 @@ public class ControllerSS {
         String thresh = list[share + 3];
 
         for (int i = 0; i < Integer.parseInt(thresh); i++) {
-
             shares = shares.concat(list[i + 1] + "\n");
-
         }
 
         String key = list[share + 6];
         keyboxcombine.setText(key);
         shareboxnumcombine.setText(thresh);
         shareboxcombine.setText(shares);
+    }
+
+    /*******************************************************************************************
+     * Copies content of Splitting outputbox into each corresponding Recontruction input boxes
+     * for XOR
+     * @param e
+     *******************************************************************************************/
+    @FXML
+    public void copyItXOR(ActionEvent e) {
+
+        String out = outputbox.getText();
+        String[] list = out.split("\\n");
+        String shares = "";
+
+        for (int i = 1; i < list.length; i++) {
+            shares = shares.concat(list[i] + "\n");
+        }
+
+        shareboxnumcombine.setText(String.valueOf(list.length-1));
+        shareboxcombine.setText(shares);
+
     }
 
     /********************************************************************
@@ -897,8 +948,10 @@ public class ControllerSS {
         String[] split = text.split("\\n");
 
         for (String s : split) {
+
             if (!isInt(s)) {
                 b = false;
+
             }
         }
 
