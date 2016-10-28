@@ -109,7 +109,7 @@ public class SSS {
                 v = (v.add(k.pow(i).mod(prime).multiply(coef[i])).mod(prime)).mod(prime);
             }
 
-            newShares = newShares.concat("(" + k + "," + v + ")\n");
+            newShares = newShares.concat(new Pair<>(k,v).toString() + "\n");
 
         }
         return newShares;
@@ -183,9 +183,9 @@ public class SSS {
         String secret;
 
         ArrayList<Pair<Integer, BigInteger>> newShares;
-        String[] list = shares.split("\\n");
+        newShares = to_list_of_pairs(shares);
 
-        if (numshares != list.length) {
+        if (numshares != newShares.size()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
@@ -193,8 +193,6 @@ public class SSS {
             alert.showAndWait();
             return "";
         }
-
-        newShares = to_list_of_pairs(shares);
 
         BigInteger secretByte = reconstruct_shares(newShares,prime);
         secret = new String(secretByte.toByteArray());

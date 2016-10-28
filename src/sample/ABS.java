@@ -5,6 +5,7 @@ package sample;
  */
 import javafx.scene.control.Alert;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 /**
  * Asmuth-Bloom Secret Sharing Scheme
@@ -132,7 +133,7 @@ public class ABS {
 
             BigInteger mi = m[i];
             BigInteger si = bloom.mod(m[i]);
-            results = results.concat("(" + si + "," + mi + ")\n");
+            results = results.concat(new Pair<>(si,mi).toString() + "\n");
 
         }
         return results;
@@ -193,8 +194,10 @@ public class ABS {
         final long start = System.nanoTime();
         String result;
         String[] list = shares.split("\\n");
+        ArrayList<Pair<BigInteger, BigInteger>> newShares;
+        newShares = to_list_of_pairs(shares);
 
-        if (num != list.length) {
+        if (num != newShares.size()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
@@ -203,40 +206,52 @@ public class ABS {
             return "";
         }
 
-        String nobracket;
-        String[] s;
         BigInteger bigm = BigInteger.ONE;
 
-        for (int i = 0; i < list.length; i++) {
-
-            nobracket = list[i].replaceAll("[\\[\\](){}]", "");
-            s = nobracket.split(",");
-            bigm = bigm.multiply(new BigInteger(s[1]));
-
+        for (int i = 0; i < newShares.size(); i++) {
+            bigm = bigm.multiply(new BigInteger(String.valueOf(newShares.get(i).getR())));
         }
 
-        //System.out.println("bigm: " + bigm);
         BigInteger res = BigInteger.ZERO;
-
+        Pair p;
+        
         for (int i = 0; i < list.length; i++) {
 
-            nobracket = list[i].replaceAll("[\\[\\](){}]", "");
-            s = nobracket.split(",");
-
-            BigInteger a = new BigInteger(s[1]);
-            BigInteger b = bigm.divide(new BigInteger(s[1]));
+            p = newShares.get(i);
+            BigInteger a = new BigInteger(String.valueOf(p.getR()));
+            BigInteger b = bigm.divide(new BigInteger(String.valueOf(p.getR())));
 
             BigInteger[] eu = euclid(a,b);
-            //System.out.println("eu[" + i + "]: [" + eu[0] + "," + eu[1] + "]");
-            res = res.add((new BigInteger(s[0])).multiply(eu[1].multiply(b)));
-            //System.out.println("res[" + i + "]: " + res);
+            res = res.add((new BigInteger(String.valueOf(p.getL()))).multiply(eu[1].multiply(b)));
         }
 
         result = new String(res.mod(bigm).mod(key).toByteArray());
-        //System.out.println("result: " + result);
-        //System.out.println("Secret: " + res.mod(bigm).mod(key));
         System.out.println("Runtime:" + (System.nanoTime() - start));
         return result;
+    }
+
+    /*******************************************************
+     * Converts a String of shares into a list of Pair<k,v>
+     * @param shares
+     *          String of shares:
+     *          share1\nshare2\n...sharen\n
+     * @return array of shares
+     *          [(1,f(1)),(2,f(2)),...,(n,f(n))]
+     *******************************************************/
+    public static ArrayList<Pair<BigInteger, BigInteger>> to_list_of_pairs(String shares) {
+
+        ArrayList<Pair<BigInteger, BigInteger>> newShares = new ArrayList<>();
+        String[] list = shares.split("\\n");
+
+        for (int i = 0; i < list.length; i++) {
+            String nobracket = list[i].replaceAll("[\\[\\](){}]","");
+            String[] s = nobracket.split(",");
+            BigInteger k = new BigInteger(String.valueOf(s[0]));
+            BigInteger v = new BigInteger(String.valueOf(s[1]));
+            newShares.add(new Pair<>(k,v));
+        }
+
+        return newShares;
     }
 
     /*****************************************
